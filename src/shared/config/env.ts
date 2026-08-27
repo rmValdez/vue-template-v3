@@ -1,0 +1,22 @@
+import { z } from 'zod';
+
+const envSchema = z.object({
+  VITE_APP_TITLE: z.string().default('Vue 3 Master Template'),
+  VITE_API_BASE_URL: z.string().url().default('https://api.example.com/v1'),
+  VITE_ENABLE_MOCK_API: z
+    .string()
+    .default('true')
+    .transform(val => val === 'true'),
+  VITE_APP_ENV: z
+    .enum(['development', 'staging', 'production', 'test'])
+    .default('development')
+});
+
+export const env = envSchema.parse({
+  VITE_APP_TITLE: import.meta.env.VITE_APP_TITLE,
+  VITE_API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
+  VITE_ENABLE_MOCK_API: import.meta.env.VITE_ENABLE_MOCK_API,
+  VITE_APP_ENV: import.meta.env.VITE_APP_ENV ?? import.meta.env.MODE
+});
+
+export type Env = z.infer<typeof envSchema>;
