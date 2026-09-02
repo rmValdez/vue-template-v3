@@ -86,16 +86,16 @@ async function handleSubmit() {
       <button
         type="button"
         class="flex-1 text-[11px] font-medium py-1.5 px-2.5 rounded-lg border border-border/80 bg-accent/30 hover:bg-accent hover:text-foreground text-muted-foreground transition-colors"
-        @click="fillCredentials('admin@example.com', 'password123')"
+        @click="fillCredentials('admin@example.com', 'Password123!')"
       >
-        Fill Admin Demo
+        Fill Admin (DB)
       </button>
       <button
         type="button"
         class="flex-1 text-[11px] font-medium py-1.5 px-2.5 rounded-lg border border-border/80 bg-accent/30 hover:bg-accent hover:text-foreground text-muted-foreground transition-colors"
-        @click="fillCredentials('user@example.com', 'password123')"
+        @click="fillCredentials('user@example.com', 'Password123!')"
       >
-        Fill Member Demo
+        Fill Member (DB)
       </button>
     </div>
 

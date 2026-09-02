@@ -2,10 +2,10 @@ import { z } from 'zod';
 
 const envSchema = z.object({
   VITE_APP_TITLE: z.string().default('Vue 3 Master Template'),
-  VITE_API_BASE_URL: z.string().url().default('https://api.example.com/v1'),
+  VITE_API_BASE_URL: z.string().url().default('http://localhost:3002/api/v1'),
   VITE_ENABLE_MOCK_API: z
     .string()
-    .default('true')
+    .default('false')
     .transform(val => val === 'true'),
   VITE_APP_ENV: z
     .enum(['development', 'staging', 'production', 'test'])

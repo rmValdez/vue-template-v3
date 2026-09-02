@@ -1,43 +1,60 @@
+/**
+ * Vue 3 Token Storage (SessionStorage & In-Memory Isolation)
+ * 
+ * Modeled after Angular TokenService:
+ * Stores short-lived Access Tokens and Refresh Tokens strictly in browser `sessionStorage`
+ * and in-memory cache to prevent persistent cross-session token exposure.
+ */
+
 const ACCESS_TOKEN_KEY = 'vue_template_access_token';
 const REFRESH_TOKEN_KEY = 'vue_template_refresh_token';
 
 class TokenStorage {
   private inMemoryAccessToken: string | null = null;
+  private inMemoryRefreshToken: string | null = null;
 
   constructor() {
-    if (typeof window !== 'undefined') {
-      this.inMemoryAccessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      this.inMemoryAccessToken = sessionStorage.getItem(ACCESS_TOKEN_KEY);
+      this.inMemoryRefreshToken = sessionStorage.getItem(REFRESH_TOKEN_KEY);
     }
   }
 
   getAccessToken(): string | null {
     if (this.inMemoryAccessToken) return this.inMemoryAccessToken;
-    if (typeof window !== 'undefined') {
-      this.inMemoryAccessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      this.inMemoryAccessToken = sessionStorage.getItem(ACCESS_TOKEN_KEY);
     }
     return this.inMemoryAccessToken;
   }
 
   getRefreshToken(): string | null {
-    if (typeof window === 'undefined') return null;
-    return localStorage.getItem(REFRESH_TOKEN_KEY);
+    if (this.inMemoryRefreshToken) return this.inMemoryRefreshToken;
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      this.inMemoryRefreshToken = sessionStorage.getItem(REFRESH_TOKEN_KEY);
+    }
+    return this.inMemoryRefreshToken;
   }
 
   setTokens(accessToken: string, refreshToken?: string): void {
     this.inMemoryAccessToken = accessToken;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+    if (refreshToken) {
+      this.inMemoryRefreshToken = refreshToken;
+    }
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      sessionStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
       if (refreshToken) {
-        localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+        sessionStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
       }
     }
   }
 
   clearTokens(): void {
     this.inMemoryAccessToken = null;
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
-      localStorage.removeItem(REFRESH_TOKEN_KEY);
+    this.inMemoryRefreshToken = null;
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      sessionStorage.removeItem(ACCESS_TOKEN_KEY);
+      sessionStorage.removeItem(REFRESH_TOKEN_KEY);
     }
   }
 

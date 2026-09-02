@@ -37,6 +37,12 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/sandbox',
+    name: 'sandbox',
+    component: () => import('@/features/sandbox/views/SandboxView.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/dashboard'
   }

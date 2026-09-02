@@ -236,9 +236,19 @@ export class HttpClient {
       headers.set('Content-Type', 'application/json');
     }
 
-    if (requiresAuth) {
+    if (!headers.has('x-tenant-id')) {
+      headers.set('x-tenant-id', 'vue-v3');
+    }
+
+    // Handle Refresh Token Endpoint vs standard Bearer Access Token
+    if (endpoint.includes('/auth/refresh')) {
+      const refreshToken = tokenStorage.getRefreshToken();
+      if (refreshToken && !headers.has('Authorization')) {
+        headers.set('Authorization', `Bearer ${refreshToken}`);
+      }
+    } else if (requiresAuth) {
       const token = tokenStorage.getAccessToken();
-      if (token) {
+      if (token && !headers.has('Authorization')) {
         headers.set('Authorization', `Bearer ${token}`);
       }
     }

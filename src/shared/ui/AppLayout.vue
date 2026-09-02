@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, type Component } from 'vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
 import {
   LayoutDashboard,
@@ -8,7 +8,15 @@ import {
   LogOut,
   Menu,
   X,
-  Layers
+  Layers,
+  Sparkles,
+  Database,
+  Zap,
+  GitBranch,
+  CheckSquare,
+  Trophy,
+  BookOpen,
+  ChevronDown
 } from 'lucide-vue-next';
 import ThemeToggle from './ThemeToggle.vue';
 
@@ -17,6 +25,22 @@ export interface NavUser {
   email: string;
   role: string;
   avatar?: string;
+}
+
+export interface NavItemChild {
+  name: string;
+  path: string;
+  tab: string;
+  icon: Component;
+  badge?: string;
+}
+
+export interface NavItem {
+  name: string;
+  path?: string;
+  icon: Component;
+  badge?: string;
+  children?: NavItemChild[];
 }
 
 const props = defineProps<{
@@ -31,11 +55,67 @@ const route = useRoute();
 const router = useRouter();
 const isMobileSidebarOpen = ref(false);
 
-const navigationItems = [
-  { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-  { name: 'Users', path: '/users', icon: Users },
-  { name: 'Posts', path: '/posts', icon: FileText }
+const expandedGroups = ref<Record<string, boolean>>({
+  'Vue 3.5 Sandbox': true
+});
+
+const navigationItems: NavItem[] = [
+  {
+    name: 'Dashboard',
+    path: '/dashboard',
+    icon: LayoutDashboard
+  },
+  {
+    name: 'Vue 3.5 Sandbox',
+    path: '/sandbox',
+    icon: Sparkles,
+    badge: '7 Labs',
+    children: [
+      { name: 'Model & DB', path: '/sandbox?tab=model', tab: 'model', icon: Database },
+      { name: 'Reactivity Lab', path: '/sandbox?tab=reactivity', tab: 'reactivity', icon: Zap },
+      { name: 'Control Flow', path: '/sandbox?tab=control-flow', tab: 'control-flow', icon: GitBranch },
+      { name: 'Forms & Zod', path: '/sandbox?tab=forms', tab: 'forms', icon: CheckSquare },
+      { name: 'Advanced Tech', path: '/sandbox?tab=advanced', tab: 'advanced', icon: Layers },
+      { name: 'Scenario Quiz', path: '/sandbox?tab=quiz', tab: 'quiz', icon: Trophy, badge: '100 Qs' },
+      { name: 'Architecture Guide', path: '/sandbox?tab=architecture', tab: 'architecture', icon: BookOpen }
+    ]
+  },
+  {
+    name: 'Users',
+    path: '/users',
+    icon: Users
+  },
+  {
+    name: 'Posts',
+    path: '/posts',
+    icon: FileText
+  }
 ];
+
+function toggleGroup(name: string) {
+  expandedGroups.value[name] = !expandedGroups.value[name];
+}
+
+function isGroupActive(item: NavItem): boolean {
+  if (item.path && route.path.startsWith(item.path)) return true;
+  if (item.children?.some(child => isChildActive(child.tab))) return true;
+  return false;
+}
+
+function isChildActive(tabSlug: string): boolean {
+  if (route.path !== '/sandbox') return false;
+  const currentTab = (route.query.tab as string) || 'quiz';
+  return (
+    currentTab === tabSlug ||
+    (tabSlug === 'model' && currentTab === '1') ||
+    (tabSlug === 'reactivity' && currentTab === '2') ||
+    (tabSlug === 'control-flow' && currentTab === '3') ||
+    (tabSlug === 'forms' && currentTab === '4') ||
+    (tabSlug === 'advanced' && currentTab === '5') ||
+    (tabSlug === 'quiz' && currentTab === '6') ||
+    (tabSlug === 'architecture' && currentTab === '7')
+  );
+}
 
 function handleLogout() {
   emit('logout');
@@ -47,7 +127,7 @@ function handleLogout() {
   <div class="min-h-screen bg-background text-foreground flex flex-col md:flex-row">
     <!-- Desktop Sidebar -->
     <aside
-      class="hidden md:flex flex-col w-64 border-r border-border bg-card/60 backdrop-blur-xl shrink-0 p-4 justify-between"
+      class="hidden md:flex flex-col w-64 border-r border-border bg-card/60 backdrop-blur-xl shrink-0 p-4 justify-between sticky top-0 h-screen overflow-y-auto"
     >
       <div class="space-y-6">
         <!-- Logo -->
@@ -67,22 +147,97 @@ function handleLogout() {
           </div>
         </div>
 
-        <!-- Navigation Links -->
-        <nav class="space-y-1">
-          <RouterLink
-            v-for="item in navigationItems"
-            :key="item.path"
-            :to="item.path"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150"
-            :class="[
-              route.path.startsWith(item.path)
-                ? 'bg-primary/10 text-primary font-semibold shadow-sm'
-                : 'text-muted-foreground hover:bg-accent hover:text-foreground'
-            ]"
-          >
-            <component :is="item.icon" class="h-4 w-4" />
-            {{ item.name }}
-          </RouterLink>
+        <!-- Navigation Links (Modular Parent / Children) -->
+        <nav class="space-y-1.5">
+          <div v-for="item in navigationItems" :key="item.name" class="space-y-1">
+            <!-- Parent WITHOUT Children -->
+            <RouterLink
+              v-if="!item.children"
+              :to="item.path!"
+              class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150"
+              :class="[
+                route.path === item.path
+                  ? 'bg-primary/10 text-primary font-semibold shadow-sm'
+                  : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+              ]"
+            >
+              <div class="flex items-center gap-3 truncate">
+                <component :is="item.icon" class="h-4 w-4 shrink-0" />
+                <span class="truncate">{{ item.name }}</span>
+              </div>
+              <span
+                v-if="item.badge"
+                class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-primary/20 text-primary"
+              >
+                {{ item.badge }}
+              </span>
+            </RouterLink>
+
+            <!-- Parent WITH Children (Expandable Collapsible Accordion) -->
+            <div v-else class="space-y-1">
+              <button
+                type="button"
+                class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group"
+                :class="[
+                  isGroupActive(item)
+                    ? 'bg-primary/10 text-primary font-semibold shadow-sm'
+                    : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                ]"
+                @click="toggleGroup(item.name)"
+              >
+                <div class="flex items-center gap-3 truncate">
+                  <component :is="item.icon" class="h-4 w-4 shrink-0 text-primary" />
+                  <span class="truncate">{{ item.name }}</span>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <span
+                    v-if="item.badge"
+                    class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-primary/20 text-primary uppercase tracking-wide"
+                  >
+                    {{ item.badge }}
+                  </span>
+                  <ChevronDown
+                    class="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition-transform duration-200"
+                    :class="{ 'rotate-180': expandedGroups[item.name] }"
+                  />
+                </div>
+              </button>
+
+              <!-- Children Tree with Guide Line -->
+              <div
+                v-if="expandedGroups[item.name]"
+                class="ml-3.5 pl-2.5 border-l-2 border-border/70 space-y-0.5 animate-in slide-in-from-top-1 duration-150"
+              >
+                <RouterLink
+                  v-for="child in item.children"
+                  :key="child.path"
+                  :to="child.path"
+                  class="flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-all"
+                  :class="[
+                    isChildActive(child.tab)
+                      ? 'bg-primary text-primary-foreground font-bold shadow-xs'
+                      : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                  ]"
+                >
+                  <div class="flex items-center gap-2 truncate">
+                    <component :is="child.icon" class="h-3.5 w-3.5 shrink-0" />
+                    <span class="truncate">{{ child.name }}</span>
+                  </div>
+                  <span
+                    v-if="child.badge"
+                    class="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full"
+                    :class="[
+                      isChildActive(child.tab)
+                        ? 'bg-primary-foreground/20 text-primary-foreground'
+                        : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                    ]"
+                  >
+                    {{ child.badge }}
+                  </span>
+                </RouterLink>
+              </div>
+            </div>
+          </div>
         </nav>
       </div>
 
@@ -161,7 +316,7 @@ function handleLogout() {
       @click.self="isMobileSidebarOpen = false"
     >
       <div
-        class="fixed inset-y-0 left-0 w-3/4 max-w-xs bg-card border-r border-border p-5 flex flex-col justify-between"
+        class="fixed inset-y-0 left-0 w-3/4 max-w-xs bg-card border-r border-border p-5 flex flex-col justify-between overflow-y-auto"
       >
         <div class="space-y-6">
           <div class="flex items-center justify-between">
@@ -178,22 +333,98 @@ function handleLogout() {
             </button>
           </div>
 
-          <nav class="space-y-1">
-            <RouterLink
-              v-for="item in navigationItems"
-              :key="item.path"
-              :to="item.path"
-              class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium"
-              :class="[
-                route.path.startsWith(item.path)
-                  ? 'bg-primary/10 text-primary font-semibold'
-                  : 'text-muted-foreground hover:bg-accent hover:text-foreground'
-              ]"
-              @click="isMobileSidebarOpen = false"
-            >
-              <component :is="item.icon" class="h-4 w-4" />
-              {{ item.name }}
-            </RouterLink>
+          <nav class="space-y-1.5">
+            <div v-for="item in navigationItems" :key="item.name" class="space-y-1">
+              <!-- Mobile Parent WITHOUT Children -->
+              <RouterLink
+                v-if="!item.children"
+                :to="item.path!"
+                class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium"
+                :class="[
+                  route.path === item.path
+                    ? 'bg-primary/10 text-primary font-semibold'
+                    : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                ]"
+                @click="isMobileSidebarOpen = false"
+              >
+                <div class="flex items-center gap-3 truncate">
+                  <component :is="item.icon" class="h-4 w-4 shrink-0" />
+                  <span class="truncate">{{ item.name }}</span>
+                </div>
+                <span
+                  v-if="item.badge"
+                  class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-primary/20 text-primary"
+                >
+                  {{ item.badge }}
+                </span>
+              </RouterLink>
+
+              <!-- Mobile Parent WITH Children -->
+              <div v-else class="space-y-1">
+                <button
+                  type="button"
+                  class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium"
+                  :class="[
+                    isGroupActive(item)
+                      ? 'bg-primary/10 text-primary font-semibold'
+                      : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                  ]"
+                  @click="toggleGroup(item.name)"
+                >
+                  <div class="flex items-center gap-3 truncate">
+                    <component :is="item.icon" class="h-4 w-4 shrink-0 text-primary" />
+                    <span class="truncate">{{ item.name }}</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 shrink-0">
+                    <span
+                      v-if="item.badge"
+                      class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-primary/20 text-primary uppercase"
+                    >
+                      {{ item.badge }}
+                    </span>
+                    <ChevronDown
+                      class="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200"
+                      :class="{ 'rotate-180': expandedGroups[item.name] }"
+                    />
+                  </div>
+                </button>
+
+                <!-- Mobile Children -->
+                <div
+                  v-if="expandedGroups[item.name]"
+                  class="ml-3.5 pl-2.5 border-l-2 border-border/70 space-y-0.5"
+                >
+                  <RouterLink
+                    v-for="child in item.children"
+                    :key="child.path"
+                    :to="child.path"
+                    class="flex items-center justify-between px-2.5 py-2 rounded-md text-xs font-medium"
+                    :class="[
+                      isChildActive(child.tab)
+                        ? 'bg-primary text-primary-foreground font-bold'
+                        : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                    ]"
+                    @click="isMobileSidebarOpen = false"
+                  >
+                    <div class="flex items-center gap-2 truncate">
+                      <component :is="child.icon" class="h-3.5 w-3.5 shrink-0" />
+                      <span class="truncate">{{ child.name }}</span>
+                    </div>
+                    <span
+                      v-if="child.badge"
+                      class="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full"
+                      :class="[
+                        isChildActive(child.tab)
+                          ? 'bg-primary-foreground/20 text-primary-foreground'
+                          : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                      ]"
+                    >
+                      {{ child.badge }}
+                    </span>
+                  </RouterLink>
+                </div>
+              </div>
+            </div>
           </nav>
         </div>
 

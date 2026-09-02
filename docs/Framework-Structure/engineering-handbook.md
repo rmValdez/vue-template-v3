@@ -43,11 +43,43 @@ graph TD
 
 ---
 
-## 3. Data Flow & State Management
+## 3. Data Flow & State Architecture Standards
 
-**Rule: TanStack Vue Query owns Server State. Pinia owns UI & Session State.**
+```text
+┌──────────────────────────────────────────────┐
+│                  Vue 3                       │
+├──────────────────────────────────────────────┤
+│ Component state                              │
+│   → ref() / reactive()                       │
+│                                              │
+│ Server/API state                             │
+│   → TanStack Vue Query                       │
+│                                              │
+│ Global application state                     │
+│   → Pinia                                    │
+│                                              │
+│ Reactive utilities                           │
+│   → VueUse                                   │
+│                                              │
+│ API validation                               │
+│   → Zod                                      │
+│                                              │
+│ HTTP                                         │
+│   → fetch / dedicated HttpClient (http.ts)   │
+└──────────────────────────────────────────────┘
+```
 
-1. **Server State (API Data)**: Must only be fetched, cached, and synced using `@tanstack/vue-query` via typed `useSafeQuery` and `useSafeMutation`.
-2. **Client State**: Authentication session tokens and UI state are managed in `pinia` stores.
-3. **Data Fetching Pipeline**:
-   `Component` → `useSafeQuery / useSafeMutation` → `Feature API Hook` → `http.ts` → `Backend API`
+### 📌 Rule of Thumb:
+
+| Responsibility | Technology | Usage Example |
+| :--- | :--- | :--- |
+| **API Data & Server State** | **TanStack Vue Query** | `useSafeQuery`, `useSafeMutation`, query cache & invalidation |
+| **User & Session State** | **Pinia** | `useAuthStore` (user identity, RBAC roles, `sessionStorage` tokens) |
+| **Component UI State** | **`ref()` / `reactive()`** | Active tabs, modal open/close, accordion toggles, local inputs |
+| **Browser & DOM Utilities**| **VueUse** | `useLocalStorage`, `useWindowSize`, `useIntersectionObserver` |
+| **Contract Validation** | **Zod** | `UserSchema.safeParse()`, form validation DTOs |
+| **HTTP Transport** | **`HttpClient` (`fetch`)** | Multi-tenant header (`x-tenant-id`), JWT Bearer injection |
+
+> [!NOTE]
+> **Strict Architectural Rule**: No Vuex, no RxJS, and no second state-management/query library. Keep dependencies lean, fast, and maintainable.
+

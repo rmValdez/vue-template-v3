@@ -41,6 +41,21 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = null;
   }
 
+  async function refreshSession(): Promise<boolean> {
+    const refreshToken = tokenStorage.getRefreshToken();
+    if (!refreshToken) return false;
+
+    try {
+      const response = await authApi.refreshToken();
+      tokenStorage.setTokens(response.accessToken, response.refreshToken);
+      user.value = response.user;
+      return true;
+    } catch {
+      logout();
+      return false;
+    }
+  }
+
   async function initAuth(): Promise<void> {
     if (isInitialized.value) return;
 
@@ -50,8 +65,11 @@ export const useAuthStore = defineStore('auth', () => {
         const currentUser = await authApi.getCurrentUser();
         user.value = currentUser;
       } catch (error) {
-        console.warn('Failed to restore user session:', error);
-        logout();
+        const refreshed = await refreshSession();
+        if (!refreshed) {
+          console.warn('Failed to restore user session:', error);
+          logout();
+        }
       } finally {
         isLoading.value = false;
       }
@@ -77,6 +95,7 @@ export const useAuthStore = defineStore('auth', () => {
     login,
     register,
     logout,
+    refreshSession,
     initAuth,
     hasPermission,
     canAccessRoute
