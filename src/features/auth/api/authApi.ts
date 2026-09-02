@@ -4,72 +4,41 @@ import { ENDPOINTS } from '@/shared/api/endpoints';
 import {
   AuthResponseSchema,
   UserSchema,
+  type ApiResponse,
   type AuthResponse,
   type LoginCredentials,
   type RegisterCredentials,
   type User
 } from '../model/types';
 
-interface AuthPayload {
-  data?: {
-    user?: { role?: string };
-    accessToken?: string;
-    refreshToken?: string;
-  };
-  user?: { role?: string };
-  role?: string;
-  accessToken?: string;
-  refreshToken?: string;
-}
-
 export const authApi = {
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    const rawData = await http.post<AuthPayload>(ENDPOINTS.auth.login, credentials, {
+    const res = await http.post<ApiResponse<AuthResponse>>(ENDPOINTS.auth.login, credentials, {
       requiresAuth: false
     });
-    const payload = (rawData?.data || rawData) as { user?: { role?: string } };
-    if (payload?.user?.role) {
-      const rawRole = String(payload.user.role).toLowerCase();
-      payload.user.role = rawRole === 'super_admin' || rawRole === 'admin' ? 'admin' : 'member';
-    }
-    return AuthResponseSchema.parse(payload);
+    return AuthResponseSchema.parse(res.data);
   },
 
   register: async (credentials: RegisterCredentials): Promise<AuthResponse> => {
-    const rawData = await http.post<AuthPayload>(ENDPOINTS.auth.register, credentials, {
+    const res = await http.post<ApiResponse<AuthResponse>>(ENDPOINTS.auth.register, credentials, {
       requiresAuth: false
     });
-    const payload = (rawData?.data || rawData) as { user?: { role?: string } };
-    if (payload?.user?.role) {
-      const rawRole = String(payload.user.role).toLowerCase();
-      payload.user.role = rawRole === 'super_admin' || rawRole === 'admin' ? 'admin' : 'member';
-    }
-    return AuthResponseSchema.parse(payload);
+    return AuthResponseSchema.parse(res.data);
   },
 
   getCurrentUser: async (): Promise<User> => {
-    const rawData = await http.get<AuthPayload>(ENDPOINTS.auth.me);
-    const payload = (rawData?.data || rawData) as { role?: string };
-    if (payload?.role) {
-      const rawRole = String(payload.role).toLowerCase();
-      payload.role = rawRole === 'super_admin' || rawRole === 'admin' ? 'admin' : 'member';
-    }
-    return UserSchema.parse(payload);
+    const res = await http.get<ApiResponse<User>>(ENDPOINTS.auth.me);
+    return UserSchema.parse(res.data);
   },
 
   refreshToken: async (token?: string): Promise<AuthResponse> => {
     const refreshToken = token || tokenStorage.getRefreshToken();
-    const rawData = await http.post<AuthPayload>(
+    const res = await http.post<ApiResponse<AuthResponse>>(
       ENDPOINTS.auth.refresh,
       { refreshToken },
       { requiresAuth: false }
     );
-    const payload = (rawData?.data || rawData) as { user?: { role?: string } };
-    if (payload?.user?.role) {
-      const rawRole = String(payload.user.role).toLowerCase();
-      payload.user.role = rawRole === 'super_admin' || rawRole === 'admin' ? 'admin' : 'member';
-    }
-    return AuthResponseSchema.parse(payload);
+    return AuthResponseSchema.parse(res.data);
   },
 
   logout: async (): Promise<void> => {

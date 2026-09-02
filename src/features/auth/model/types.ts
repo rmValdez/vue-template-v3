@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+export interface ApiResponse<T> {
+  message?: string;
+  data: T;
+}
+
 export const UserSchema = z.object({
   id: z.string(),
   name: z.string().min(1),
