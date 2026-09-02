@@ -5,11 +5,23 @@ export interface ApiResponse<T> {
   data: T;
 }
 
+export const UserRoleSchema = z.preprocess((val) => {
+  if (typeof val === 'string') {
+    const raw = val.toLowerCase().trim();
+    if (raw === 'super_admin' || raw === 'admin') return 'admin';
+    if (raw === 'manager') return 'manager';
+    if (raw === 'developer') return 'admin';
+    if (raw === 'user' || raw === 'member') return 'member';
+    if (raw === 'guest' || raw === 'viewer') return 'guest';
+  }
+  return val;
+}, z.enum(['admin', 'manager', 'member', 'guest'] as const));
+
 export const UserSchema = z.object({
   id: z.string(),
   name: z.string().min(1),
   email: z.string().email(),
-  role: z.enum(['admin', 'manager', 'member', 'guest'] as const),
+  role: UserRoleSchema,
   avatar: z.string().optional()
 });
 
