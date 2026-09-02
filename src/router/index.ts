@@ -31,6 +31,10 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true, roles: ['admin', 'manager'] }
   },
   {
+    path: '/user',
+    redirect: '/users'
+  },
+  {
     path: '/sandbox',
     name: 'sandbox',
     component: () => import('@/features/sandbox/views/SandboxView.vue'),
