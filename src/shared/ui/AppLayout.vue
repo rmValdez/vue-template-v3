@@ -4,7 +4,6 @@ import { RouterLink, useRoute, useRouter } from 'vue-router';
 import {
   LayoutDashboard,
   Users,
-  FileText,
   LogOut,
   Menu,
   X,
@@ -84,11 +83,6 @@ const navigationItems: NavItem[] = [
     name: 'Users',
     path: '/users',
     icon: Users
-  },
-  {
-    name: 'Posts',
-    path: '/posts',
-    icon: FileText
   }
 ];
 

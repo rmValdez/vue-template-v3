@@ -11,10 +11,20 @@ import {
   type UpdateRolePayload
 } from '../model/types';
 
+interface UsersResponseEnvelope {
+  data?: {
+    items?: unknown[];
+    users?: unknown[];
+  };
+  items?: unknown[];
+  users?: unknown[];
+}
+
 export const usersApi = {
   getUsers: async (): Promise<UserList> => {
-    const data = await http.get<UserList>(ENDPOINTS.users.list);
-    return UserListSchema.parse(data);
+    const res = await http.get<UsersResponseEnvelope>(ENDPOINTS.users.list);
+    const rawList = res?.data?.items ?? res?.data?.users ?? res?.items ?? res?.users ?? res?.data ?? res ?? [];
+    return UserListSchema.parse(rawList);
   },
 
   updateUserRole: async (payload: UpdateRolePayload): Promise<UserItem> => {
