@@ -22,5 +22,10 @@ export const ENDPOINTS = {
     stats: '/dashboard/stats',
     activity: '/dashboard/activity',
     analytics: '/dashboard/analytics'
+  },
+  quiz: {
+    list: '/quiz',
+    progress: '/quiz/progress',
+    reset: '/quiz/progress/reset'
   }
 } as const;

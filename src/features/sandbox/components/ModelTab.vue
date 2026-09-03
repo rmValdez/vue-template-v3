@@ -7,6 +7,9 @@ import {
   useVueQuizProgress
 } from '../services/vue-quiz.service';
 
+import { env } from '@/shared/config/env';
+import { ENDPOINTS } from '@/shared/api/endpoints';
+
 const {
   data: questionsData,
   isLoading: isLoadingQuestions,
@@ -15,7 +18,7 @@ const {
 const { data: progressData, isLoading: isLoadingProgress } =
   useVueQuizProgress();
 const tenantId = ref('vue-v3');
-const backendUrl = ref('http://localhost:3002/api/v1/quiz');
+const backendUrl = ref(`${env.VITE_API_BASE_URL}${ENDPOINTS.quiz.list}`);
 </script>
 
 <template>
