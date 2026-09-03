@@ -17,40 +17,44 @@ import {
 // unlike this client's generic `ApiResponse<T>` convention used elsewhere.
 export const authApi = {
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    const res = await http.post<AuthResponse>(
+    const res = await http.post<any>(
       ENDPOINTS.auth.login,
       credentials,
       {
         requiresAuth: false
       }
     );
-    return AuthResponseSchema.parse(res);
+    const payload = res?.data ?? res;
+    return AuthResponseSchema.parse(payload);
   },
 
   register: async (credentials: RegisterCredentials): Promise<AuthResponse> => {
-    const res = await http.post<AuthResponse>(
+    const res = await http.post<any>(
       ENDPOINTS.auth.register,
       credentials,
       {
         requiresAuth: false
       }
     );
-    return AuthResponseSchema.parse(res);
+    const payload = res?.data ?? res;
+    return AuthResponseSchema.parse(payload);
   },
 
   getCurrentUser: async (): Promise<User> => {
-    const res = await http.get<User>(ENDPOINTS.auth.me);
-    return UserSchema.parse(res);
+    const res = await http.get<any>(ENDPOINTS.auth.me);
+    const payload = res?.data ?? res;
+    return UserSchema.parse(payload);
   },
 
   refreshToken: async (token?: string): Promise<RefreshResponse> => {
     const refreshToken = token || tokenStorage.getRefreshToken();
-    const res = await http.post<RefreshResponse>(
+    const res = await http.post<any>(
       ENDPOINTS.auth.refresh,
       { refreshToken },
       { requiresAuth: false }
     );
-    return RefreshResponseSchema.parse(res);
+    const payload = res?.data ?? res;
+    return RefreshResponseSchema.parse(payload);
   },
 
   logout: async (): Promise<void> => {

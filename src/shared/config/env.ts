@@ -2,9 +2,8 @@ import { z } from 'zod';
 
 const envSchema = z.object({
   VITE_APP_TITLE: z.string().default('Vue 3 Master Template'),
-  // nuxt-template-v2, the shared local auth backend for this template and
-  // angular-template-v4.
-  VITE_API_BASE_URL: z.string().url().default('http://localhost:3000/api'),
+  // node-postg-backend-template on port 3002
+  VITE_API_BASE_URL: z.string().url().default('http://localhost:3002/api/v1'),
   VITE_ENABLE_MOCK_API: z
     .string()
     .default('false')
