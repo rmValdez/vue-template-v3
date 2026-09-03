@@ -33,12 +33,6 @@ export const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     'posts:delete',
     'dashboard:view'
   ],
-  member: [
-    'posts:read',
-    'posts:create',
-    'dashboard:view'
-  ],
-  guest: [
-    'posts:read'
-  ]
+  member: ['posts:read', 'posts:create', 'dashboard:view'],
+  guest: ['posts:read']
 };

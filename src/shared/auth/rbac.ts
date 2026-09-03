@@ -19,7 +19,8 @@ export class RbacEngine {
     }
 
     // 2. Fallback to client role matrix
-    const role = (typeof subject === 'object' ? subject.role : subject) as Role | undefined;
+    const role = (typeof subject === 'object' ? subject.role : subject) as
+      Role | undefined;
     if (!role) return false;
     const permissions = ROLE_PERMISSIONS[role] || [];
     return permissions.includes(permission as Permission);
@@ -41,7 +42,10 @@ export class RbacEngine {
     return permissions.some(perm => this.hasPermission(subject, perm));
   }
 
-  canAccessRoute(userRole: Role | undefined | null, requiredRoles?: Role[]): boolean {
+  canAccessRoute(
+    userRole: Role | undefined | null,
+    requiredRoles?: Role[]
+  ): boolean {
     if (!requiredRoles || requiredRoles.length === 0) return true;
     if (!userRole) return false;
     return requiredRoles.includes(userRole);

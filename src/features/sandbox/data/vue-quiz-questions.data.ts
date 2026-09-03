@@ -25,7 +25,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 101,
     category: 'FUNDAMENTALS',
     difficulty: 'BEGINNER',
-    question: 'How do you create and mount a modern Vue 3 application instance in main.ts?',
+    question:
+      'How do you create and mount a modern Vue 3 application instance in main.ts?',
     codeSnippet: `// Option comparison:\n1. new Vue({ el: '#app', render: h => h(App) });\n2. const app = createApp(App); app.use(router).use(pinia).mount('#app');`,
     options: [
       'new Vue({ el: "#app" }) using the Vue 2 constructor.',
@@ -34,13 +35,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'ReactDOM.createRoot(document.getElementById("app")).render(<App />).'
     ],
     correctIndex: 1,
-    explanation: 'Vue 3 applications use createApp(RootComponent) to create an isolated application context before mounting plugins and DOM targets.'
+    explanation:
+      'Vue 3 applications use createApp(RootComponent) to create an isolated application context before mounting plugins and DOM targets.'
   },
   {
     id: 102,
     category: 'FUNDAMENTALS',
     difficulty: 'BEGINNER',
-    question: 'What is the primary advantage of `<script setup>` in Single File Components (SFCs)?',
+    question:
+      'What is the primary advantage of `<script setup>` in Single File Components (SFCs)?',
     options: [
       'It compiles components to WebAssembly.',
       'It provides concise syntax where top-level bindings (variables, functions, imports) are automatically exposed to the template without manual return statements.',
@@ -48,7 +51,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'It disables TypeScript checking.'
     ],
     correctIndex: 1,
-    explanation: '<script setup> is the recommended compile-time syntactic sugar for Composition API inside SFCs, eliminating boilerplate return objects.'
+    explanation:
+      '<script setup> is the recommended compile-time syntactic sugar for Composition API inside SFCs, eliminating boilerplate return objects.'
   },
   {
     id: 103,
@@ -63,13 +67,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Destructuring props causes a compile error in Vue 3.5.'
     ],
     correctIndex: 0,
-    explanation: 'Vue 3.5 introduces stable Reactive Props Destructure, allowing direct destructuring with default values while maintaining full reactivity.'
+    explanation:
+      'Vue 3.5 introduces stable Reactive Props Destructure, allowing direct destructuring with default values while maintaining full reactivity.'
   },
   {
     id: 104,
     category: 'FUNDAMENTALS',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you declare component options (like `inheritAttrs: false` or component name) inside `<script setup>` in Vue 3.3+?',
+    question:
+      'How do you declare component options (like `inheritAttrs: false` or component name) inside `<script setup>` in Vue 3.3+?',
     codeSnippet: `<script setup lang="ts">\ndefineOptions({\n  name: 'CustomModal',\n  inheritAttrs: false\n});\n</script>`,
     options: [
       'Use the `defineOptions()` macro directly inside `<script setup>`.',
@@ -78,13 +84,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Set options on window.Vue.'
     ],
     correctIndex: 0,
-    explanation: 'defineOptions() allows declaring component metadata (name, inheritAttrs) directly within <script setup> without extra script blocks.'
+    explanation:
+      'defineOptions() allows declaring component metadata (name, inheritAttrs) directly within <script setup> without extra script blocks.'
   },
   {
     id: 105,
     category: 'FUNDAMENTALS',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you provide a reactive dependency from an ancestor component to deeply nested descendants using provide/inject?',
+    question:
+      'How do you provide a reactive dependency from an ancestor component to deeply nested descendants using provide/inject?',
     codeSnippet: `// In Ancestor:\nconst activeTheme = ref('dark');\nprovide('theme', activeTheme);\n\n// In Descendant:\nconst theme = inject<Ref<string>>('theme', ref('light'));`,
     options: [
       'provide(key, refValue) in ancestor and inject(key, defaultValue) in descendant.',
@@ -93,13 +101,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use document.querySelector.'
     ],
     correctIndex: 0,
-    explanation: 'provide/inject allows dependency injection across the component tree without prop-drilling, preserving reactivity when passing refs.'
+    explanation:
+      'provide/inject allows dependency injection across the component tree without prop-drilling, preserving reactivity when passing refs.'
   },
   {
     id: 106,
     category: 'FUNDAMENTALS',
     difficulty: 'INTERMEDIATE',
-    question: 'What is the modern Vue 3.5 way to create a template ref for a DOM element without magic string matching?',
+    question:
+      'What is the modern Vue 3.5 way to create a template ref for a DOM element without magic string matching?',
     codeSnippet: `<script setup lang="ts">\nimport { useTemplateRef, onMounted } from 'vue';\n\nconst inputRef = useTemplateRef<HTMLInputElement>('mainInput');\nonMounted(() => inputRef.value?.focus());\n</script>\n<template>\n  <input ref="mainInput" type="text" />\n</template>`,
     options: [
       'Use `useTemplateRef("mainInput")` introduced in Vue 3.5 for typed, robust template ref binding.',
@@ -108,13 +118,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Template refs are deprecated in Vue 3.'
     ],
     correctIndex: 0,
-    explanation: 'Vue 3.5 introduces useTemplateRef() which cleanly decouples variable naming from the ref attribute string in templates.'
+    explanation:
+      'Vue 3.5 introduces useTemplateRef() which cleanly decouples variable naming from the ref attribute string in templates.'
   },
   {
     id: 107,
     category: 'FUNDAMENTALS',
     difficulty: 'ADVANCED',
-    question: 'How do you register a cleanup callback when a component or composable unmounts or effect scope disposes?',
+    question:
+      'How do you register a cleanup callback when a component or composable unmounts or effect scope disposes?',
     codeSnippet: `import { onUnmounted, onScopeDispose } from 'vue';\n\n// Inside a custom composable:\nonScopeDispose(() => {\n  window.removeEventListener('resize', handleResize);\n});`,
     options: [
       'Use `onScopeDispose()` in composables or `onUnmounted()` inside component setup.',
@@ -123,27 +135,31 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use setTimeout.'
     ],
     correctIndex: 0,
-    explanation: 'onScopeDispose() registers cleanup callbacks that fire when the active effect scope (or component instance) is disposed.'
+    explanation:
+      'onScopeDispose() registers cleanup callbacks that fire when the active effect scope (or component instance) is disposed.'
   },
   {
     id: 108,
     category: 'FUNDAMENTALS',
     difficulty: 'BEGINNER',
-    question: 'How do you bind dynamic classes `:class` conditionally in a Vue template?',
+    question:
+      'How do you bind dynamic classes `:class` conditionally in a Vue template?',
     options: [
-      '`<div :class="{ \'bg-primary\': isActive, \'opacity-50\': isDisabled }">`',
+      "`<div :class=\"{ 'bg-primary': isActive, 'opacity-50': isDisabled }\">`",
       '`<div class="isActive ? bg-primary : \'\'">`',
       '`<div (class)="isActive">`',
       '`<div [class]="isActive">`'
     ],
     correctIndex: 0,
-    explanation: '`:class="{ className: condition }"` evaluates truthiness to add or remove classes dynamically.'
+    explanation:
+      '`:class="{ className: condition }"` evaluates truthiness to add or remove classes dynamically.'
   },
   {
     id: 109,
     category: 'FUNDAMENTALS',
     difficulty: 'INTERMEDIATE',
-    question: 'What is the purpose of `<slot>` fallback content in a reusable Card component?',
+    question:
+      'What is the purpose of `<slot>` fallback content in a reusable Card component?',
     codeSnippet: `<div class="card-footer">\n  <slot name="actions">\n    <button class="btn-default">Close</button>\n  </slot>\n</div>`,
     options: [
       'It renders `<button class="btn-default">Close</button>` only if the parent component does NOT provide content for the `actions` slot.',
@@ -152,13 +168,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'It runs on server side only.'
     ],
     correctIndex: 0,
-    explanation: 'Slot fallback content is displayed as a default whenever the consumer component does not pass any elements to that slot.'
+    explanation:
+      'Slot fallback content is displayed as a default whenever the consumer component does not pass any elements to that slot.'
   },
   {
     id: 110,
     category: 'FUNDAMENTALS',
     difficulty: 'ADVANCED',
-    question: 'How do you pass data from a child component back up to the parent slot template (Scoped Slots)?',
+    question:
+      'How do you pass data from a child component back up to the parent slot template (Scoped Slots)?',
     codeSnippet: `<!-- Child Component List.vue -->\n<li v-for="item in items" :key="item.id">\n  <slot :item="item" :index="index" />\n</li>\n\n<!-- Parent Consumer -->\n<List :items="products" v-slot="{ item, index }">\n  <span>{{ index }}: {{ item.name }}</span>\n</List>`,
     options: [
       'Bind props on the `<slot :item="item">` tag and consume via `v-slot="{ item }"` in the parent.',
@@ -167,13 +185,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Scoped slots are not supported in Vue 3.'
     ],
     correctIndex: 0,
-    explanation: 'Scoped slots allow child components to pass data into the parent slot render scope using slot props.'
+    explanation:
+      'Scoped slots allow child components to pass data into the parent slot render scope using slot props.'
   },
   {
     id: 111,
     category: 'FUNDAMENTALS',
     difficulty: 'BEGINNER',
-    question: 'How do you define typed emitted events in `<script setup>` using TypeScript?',
+    question:
+      'How do you define typed emitted events in `<script setup>` using TypeScript?',
     codeSnippet: `const emit = defineEmits<{\n  (e: 'change', value: string): void;\n  (e: 'delete', id: number): void;\n}>();`,
     options: [
       'Using type-based `defineEmits<{ (e: eventName, ...args): returnType }>()`.',
@@ -182,13 +202,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Creating global CustomEvent.'
     ],
     correctIndex: 0,
-    explanation: 'defineEmits<T>() provides compile-time type checking and IDE autocomplete for emitted component events.'
+    explanation:
+      'defineEmits<T>() provides compile-time type checking and IDE autocomplete for emitted component events.'
   },
   {
     id: 112,
     category: 'FUNDAMENTALS',
     difficulty: 'ADVANCED',
-    question: 'What is an `EffectScope` in Vue 3 and why is it used in libraries like VueUse and Pinia?',
+    question:
+      'What is an `EffectScope` in Vue 3 and why is it used in libraries like VueUse and Pinia?',
     options: [
       'An API (`effectScope()`) that groups reactive effects and computed signals together so they can be disposed of in a single `.stop()` call.',
       'A CSS styling container.',
@@ -196,13 +218,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'A tool to bundle npm modules.'
     ],
     correctIndex: 0,
-    explanation: 'EffectScope allows capturing and bulk-disposing of all reactive effects created during a composable or store lifecycle.'
+    explanation:
+      'EffectScope allows capturing and bulk-disposing of all reactive effects created during a composable or store lifecycle.'
   },
   {
     id: 113,
     category: 'FUNDAMENTALS',
     difficulty: 'INTERMEDIATE',
-    question: 'What happens when you pass an object with reactive getters to `defineProps` with defaults in Vue 3.5?',
+    question:
+      'What happens when you pass an object with reactive getters to `defineProps` with defaults in Vue 3.5?',
     options: [
       'Defaults are evaluated lazily only when the prop is undefined, preserving full reactivity.',
       'The component crashes on mount.',
@@ -210,13 +234,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Default props cannot be used with TypeScript.'
     ],
     correctIndex: 0,
-    explanation: 'Vue 3.5 compiler converts destructured default prop values into lazy getters that preserve reactivity.'
+    explanation:
+      'Vue 3.5 compiler converts destructured default prop values into lazy getters that preserve reactivity.'
   },
   {
     id: 114,
     category: 'FUNDAMENTALS',
     difficulty: 'EXPERT',
-    question: 'How do you configure CSS Modules or Scoped CSS inside a Vue 3 SFC?',
+    question:
+      'How do you configure CSS Modules or Scoped CSS inside a Vue 3 SFC?',
     options: [
       '`<style scoped>` isolates styles to the component via data attributes (`data-v-xxx`), while `<style module>` exposes a `$style` class object.',
       'CSS cannot be written inside Vue SFCs.',
@@ -224,13 +250,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'By using inline style attributes on every tag.'
     ],
     correctIndex: 0,
-    explanation: '<style scoped> scopes CSS via unique post-processed attributes, whereas <style module> generates unique hash classes.'
+    explanation:
+      '<style scoped> scopes CSS via unique post-processed attributes, whereas <style module> generates unique hash classes.'
   },
   {
     id: 115,
     category: 'FUNDAMENTALS',
     difficulty: 'BEGINNER',
-    question: 'What directive is used for two-way data binding on form inputs in Vue?',
+    question:
+      'What directive is used for two-way data binding on form inputs in Vue?',
     options: [
       '`v-model="username"`',
       '`[(ngModel)]="username"`',
@@ -238,7 +266,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       '`v-bind:input="username"`'
     ],
     correctIndex: 0,
-    explanation: 'v-model provides two-way data binding, combining value prop binding with input event listeners.'
+    explanation:
+      'v-model provides two-way data binding, combining value prop binding with input event listeners.'
   },
 
   // SECTION 2: VUE 3.5 REACTIVITY & STATE MANAGEMENT
@@ -246,7 +275,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 116,
     category: 'REACTIVITY',
     difficulty: 'INTERMEDIATE',
-    question: 'You have a product list ref `products` and a search filter ref `searchQuery`. How do you compute the live filtered list?',
+    question:
+      'You have a product list ref `products` and a search filter ref `searchQuery`. How do you compute the live filtered list?',
     codeSnippet: `const products = ref<Product[]>([]);\nconst searchQuery = ref('');\n\n// How to declare filteredProducts?\nconst filteredProducts = computed(() => {\n  const q = searchQuery.value.toLowerCase();\n  return products.value.filter(p => p.name.toLowerCase().includes(q));\n});`,
     options: [
       'Use `computed(() => ...)` which tracks both refs and caches the result until dependencies change.',
@@ -255,13 +285,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use `reactive(products.value.filter(...))`.'
     ],
     correctIndex: 0,
-    explanation: 'computed() derives state with automatic dependency tracking and lazy memoized caching.'
+    explanation:
+      'computed() derives state with automatic dependency tracking and lazy memoized caching.'
   },
   {
     id: 117,
     category: 'REACTIVITY',
     difficulty: 'INTERMEDIATE',
-    question: 'What is the difference between `ref()` and `reactive()` in Vue 3?',
+    question:
+      'What is the difference between `ref()` and `reactive()` in Vue 3?',
     options: [
       'ref() holds primitives or objects accessed via `.value` (auto-unwrapped in templates); reactive() only accepts objects/arrays and provides deep proxying without `.value`.',
       'ref() is deprecated; reactive() is the only API in Vue 3.5.',
@@ -269,13 +301,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'There is no difference.'
     ],
     correctIndex: 0,
-    explanation: 'ref wraps any value in a RefImpl container with .value, whereas reactive() wraps objects directly in JavaScript Proxies.'
+    explanation:
+      'ref wraps any value in a RefImpl container with .value, whereas reactive() wraps objects directly in JavaScript Proxies.'
   },
   {
     id: 118,
     category: 'REACTIVITY',
     difficulty: 'ADVANCED',
-    question: 'What happens if you destructure properties from a `reactive()` object without `toRefs()`?',
+    question:
+      'What happens if you destructure properties from a `reactive()` object without `toRefs()`?',
     codeSnippet: `const state = reactive({ count: 0, name: 'Alice' });\nconst { count, name } = state;\n// If state.count++ is called, does count update?`,
     options: [
       'Reactivity is LOST because destructuring extracts plain primitive values from the Proxy; use `toRefs(state)` to maintain reactivity.',
@@ -284,13 +318,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'The browser reloads.'
     ],
     correctIndex: 0,
-    explanation: 'Destructuring a reactive() object copies plain primitives. Wrapping with toRefs(state) turns each property into a reactive ref.'
+    explanation:
+      'Destructuring a reactive() object copies plain primitives. Wrapping with toRefs(state) turns each property into a reactive ref.'
   },
   {
     id: 119,
     category: 'REACTIVITY',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you perform a side-effect (e.g. fetching API data) immediately on mount AND whenever `userId` changes using `watchEffect`?',
+    question:
+      'How do you perform a side-effect (e.g. fetching API data) immediately on mount AND whenever `userId` changes using `watchEffect`?',
     codeSnippet: `const userId = ref('123');\nwatchEffect(async () => {\n  const data = await fetchUserData(userId.value);\n  userProfile.value = data;\n});`,
     options: [
       'Use `watchEffect(callback)` which runs immediately on setup and automatically tracks any reactive ref accessed inside it.',
@@ -299,13 +335,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'watchEffect cannot run asynchronous code.'
     ],
     correctIndex: 0,
-    explanation: 'watchEffect runs immediately and automatically tracks all reactive dependencies read synchronously during execution.'
+    explanation:
+      'watchEffect runs immediately and automatically tracks all reactive dependencies read synchronously during execution.'
   },
   {
     id: 120,
     category: 'REACTIVITY',
     difficulty: 'ADVANCED',
-    question: 'How do you create a custom two-way bound component prop using `defineModel()` in Vue 3.4+ / 3.5?',
+    question:
+      'How do you create a custom two-way bound component prop using `defineModel()` in Vue 3.4+ / 3.5?',
     codeSnippet: `<!-- Child: Counter.vue -->\n<script setup lang="ts">\nconst count = defineModel<number>({ default: 0 });\n</script>\n<template>\n  <button @click="count++">Count: {{ count }}</button>\n</template>\n\n<!-- Parent Usage: -->\n<Counter v-model="parentCount" />`,
     options: [
       'Declare `const model = defineModel<T>()` in the child component; it automatically syncs with `v-model` in the parent.',
@@ -314,13 +352,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'defineModel was removed in Vue 3.5.'
     ],
     correctIndex: 0,
-    explanation: 'defineModel() simplifies two-way binding by declaring a ref that auto-synchronizes with the parent component v-model.'
+    explanation:
+      'defineModel() simplifies two-way binding by declaring a ref that auto-synchronizes with the parent component v-model.'
   },
   {
     id: 121,
     category: 'REACTIVITY',
     difficulty: 'ADVANCED',
-    question: 'What is `shallowRef()` and when should you use it for performance optimization?',
+    question:
+      'What is `shallowRef()` and when should you use it for performance optimization?',
     codeSnippet: `// Example: Storing a massive GeoJSON dataset or Monocle editor instance\nconst chartInstance = shallowRef(null);`,
     options: [
       'It creates a ref that only tracks `.value` reassignment without deeply converting nested object properties into reactive proxies.',
@@ -329,13 +369,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'It runs only on mobile browsers.'
     ],
     correctIndex: 0,
-    explanation: 'shallowRef avoids deep reactive proxy overhead for large immutable datasets or external library instances (e.g. Three.js, Leaflet).'
+    explanation:
+      'shallowRef avoids deep reactive proxy overhead for large immutable datasets or external library instances (e.g. Three.js, Leaflet).'
   },
   {
     id: 122,
     category: 'REACTIVITY',
     difficulty: 'ADVANCED',
-    question: 'How do you force a `shallowRef` to notify its watchers after mutating a nested property in-place?',
+    question:
+      'How do you force a `shallowRef` to notify its watchers after mutating a nested property in-place?',
     codeSnippet: `const largeList = shallowRef(['A', 'B']);\nlargeList.value.push('C');\n// How to trigger reactivity?\ntriggerRef(largeList);`,
     options: [
       'Call `triggerRef(largeList)` to explicitly notify dependents.',
@@ -344,13 +386,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Call largeList.update().'
     ],
     correctIndex: 0,
-    explanation: 'triggerRef(ref) forces dependent effects and computed properties of a shallowRef to re-evaluate.'
+    explanation:
+      'triggerRef(ref) forces dependent effects and computed properties of a shallowRef to re-evaluate.'
   },
   {
     id: 123,
     category: 'REACTIVITY',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you watch a specific property inside an object using `watch()` without triggering on unrelated properties?',
+    question:
+      'How do you watch a specific property inside an object using `watch()` without triggering on unrelated properties?',
     codeSnippet: `const user = reactive({ id: 1, profile: { name: 'Alex', age: 28 } });\n\n// How to watch only user.profile.name?\nwatch(() => user.profile.name, (newName, oldName) => {\n  console.log(\`Name changed from \${oldName} to \${newName}\`);\n});`,
     options: [
       'Pass a getter function `() => user.profile.name` as the first argument to `watch()`.',
@@ -359,13 +403,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use `watchObject()`.'
     ],
     correctIndex: 0,
-    explanation: 'Passing a getter function (() => target) allows watch to track only the returned value with surgical precision.'
+    explanation:
+      'Passing a getter function (() => target) allows watch to track only the returned value with surgical precision.'
   },
   {
     id: 124,
     category: 'REACTIVITY',
     difficulty: 'EXPERT',
-    question: 'Why does mutating a reactive state variable directly inside a `computed()` getter violate Vue architecture?',
+    question:
+      'Why does mutating a reactive state variable directly inside a `computed()` getter violate Vue architecture?',
     options: [
       'Computed getters must remain pure derivations of state without side-effects to prevent infinite reactive evaluation loops.',
       'JavaScript restricts assignments inside arrow functions.',
@@ -373,7 +419,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Computed getters only run on the server.'
     ],
     correctIndex: 0,
-    explanation: 'Computed properties should be pure side-effect-free calculations. Side effects belong in watchers or event listeners.'
+    explanation:
+      'Computed properties should be pure side-effect-free calculations. Side effects belong in watchers or event listeners.'
   },
   {
     id: 125,
@@ -388,13 +435,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Read `count.previous`.'
     ],
     correctIndex: 0,
-    explanation: 'watch callbacks provide both the current new value and the previous old value.'
+    explanation:
+      'watch callbacks provide both the current new value and the previous old value.'
   },
   {
     id: 126,
     category: 'REACTIVITY',
     difficulty: 'ADVANCED',
-    question: 'What is the `flush: "post"` option in `watch()` or `watchEffect()` used for?',
+    question:
+      'What is the `flush: "post"` option in `watch()` or `watchEffect()` used for?',
     options: [
       'It delays the watcher callback until AFTER the component DOM has updated and re-rendered.',
       'It sends an HTTP POST request automatically.',
@@ -402,21 +451,19 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'It runs the watcher before setup.'
     ],
     correctIndex: 0,
-    explanation: 'flush: "post" (or watchPostEffect) ensures the watcher executes after DOM patches so you can read updated element sizes/refs.'
+    explanation:
+      'flush: "post" (or watchPostEffect) ensures the watcher executes after DOM patches so you can read updated element sizes/refs.'
   },
   {
     id: 127,
     category: 'REACTIVITY',
     difficulty: 'BEGINNER',
-    question: 'How do you update a ref `const count = ref(0)` inside a `<script setup>` function?',
-    options: [
-      '`count.value++`',
-      '`count++`',
-      '`count.set(1)`',
-      '`count = 1`'
-    ],
+    question:
+      'How do you update a ref `const count = ref(0)` inside a `<script setup>` function?',
+    options: ['`count.value++`', '`count++`', '`count.set(1)`', '`count = 1`'],
     correctIndex: 0,
-    explanation: 'In JavaScript/TypeScript code, refs must be accessed and mutated via their `.value` property (in templates, .value is auto-unwrapped).'
+    explanation:
+      'In JavaScript/TypeScript code, refs must be accessed and mutated via their `.value` property (in templates, .value is auto-unwrapped).'
   },
   {
     id: 128,
@@ -431,13 +478,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'It stores data in IndexedDB.'
     ],
     correctIndex: 0,
-    explanation: 'toRef() normalizes values, getters, or object properties into reactive refs, ideal for composable arguments.'
+    explanation:
+      'toRef() normalizes values, getters, or object properties into reactive refs, ideal for composable arguments.'
   },
   {
     id: 129,
     category: 'REACTIVITY',
     difficulty: 'EXPERT',
-    question: 'In Vue 3.5, how does the reactivity engine achieve up to 56% faster memory performance compared to Vue 3.4?',
+    question:
+      'In Vue 3.5, how does the reactivity engine achieve up to 56% faster memory performance compared to Vue 3.4?',
     options: [
       'A complete rewrite of the dependency tracking engine using doubly-linked list nodes and bitwise versioning, eliminating memory bloat during deep state shifts.',
       'By removing TypeScript support.',
@@ -445,13 +494,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'By disabling watchers.'
     ],
     correctIndex: 0,
-    explanation: 'Vue 3.5 revamped its reactivity system with optimized doubly-linked graph nodes, reducing memory overhead and speeding up dependency tracking.'
+    explanation:
+      'Vue 3.5 revamped its reactivity system with optimized doubly-linked graph nodes, reducing memory overhead and speeding up dependency tracking.'
   },
   {
     id: 130,
     category: 'REACTIVITY',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you create a writable computed property that supports both getting and setting?',
+    question:
+      'How do you create a writable computed property that supports both getting and setting?',
     codeSnippet: `const firstName = ref('John');\nconst lastName = ref('Doe');\n\nconst fullName = computed({\n  get: () => \`\${firstName.value} \${lastName.value}\`,\n  set: (newVal) => {\n    [firstName.value, lastName.value] = newVal.split(' ');\n  }\n});`,
     options: [
       'Pass an object with `get()` and `set()` functions into `computed({ get, set })`.',
@@ -460,7 +511,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use a watch instead.'
     ],
     correctIndex: 0,
-    explanation: 'computed({ get, set }) creates a writable computed ref with getter and setter handlers.'
+    explanation:
+      'computed({ get, set }) creates a writable computed ref with getter and setter handlers.'
   },
 
   // SECTION 3: ARCHITECTURE & PINIA
@@ -468,7 +520,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 131,
     category: 'ARCHITECTURE',
     difficulty: 'INTERMEDIATE',
-    question: 'What naming and design convention defines a clean Vue 3 Composable function?',
+    question:
+      'What naming and design convention defines a clean Vue 3 Composable function?',
     options: [
       'Named starting with `useXxx` (e.g. `useCart`, `useAuth`), encapsulates reactive state and methods, and returns a plain object of refs/functions.',
       'Named `handleXxx` and returns a class instance.',
@@ -476,13 +529,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Must be placed in the public/ folder.'
     ],
     correctIndex: 0,
-    explanation: 'Composables follow the useCamelCase convention, encapsulating stateful logic and returning reactive state and action handlers.'
+    explanation:
+      'Composables follow the useCamelCase convention, encapsulating stateful logic and returning reactive state and action handlers.'
   },
   {
     id: 132,
     category: 'ARCHITECTURE',
     difficulty: 'ADVANCED',
-    question: 'In Feature-Atomic Architecture (FAOS), can `src/features/users/` directly import components from `src/features/posts/`?',
+    question:
+      'In Feature-Atomic Architecture (FAOS), can `src/features/users/` directly import components from `src/features/posts/`?',
     options: [
       'No! Features must remain isolated; shared logic or presentational components must be located in `src/shared/` or `src/core/`.',
       'Yes, relative cross-imports across any features are encouraged.',
@@ -490,13 +545,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Only on Fridays.'
     ],
     correctIndex: 0,
-    explanation: 'FAOS enforces strict feature isolation to prevent circular dependencies and allow independent feature refactoring or removal.'
+    explanation:
+      'FAOS enforces strict feature isolation to prevent circular dependencies and allow independent feature refactoring or removal.'
   },
   {
     id: 133,
     category: 'ARCHITECTURE',
     difficulty: 'INTERMEDIATE',
-    question: 'What is the recommended modern syntax for defining a Pinia store in Vue 3?',
+    question:
+      'What is the recommended modern syntax for defining a Pinia store in Vue 3?',
     codeSnippet: `export const useAuthStore = defineStore('auth', () => {\n  const user = ref<User | null>(null);\n  const isAuthenticated = computed(() => !!user.value);\n  function login(userData: User) { user.value = userData; }\n  return { user, isAuthenticated, login };\n});`,
     options: [
       'Setup Stores using `defineStore("id", () => { ... })` with Composition API refs, computeds, and functions.',
@@ -505,13 +562,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Redux reducers.'
     ],
     correctIndex: 0,
-    explanation: 'Setup Stores in Pinia mirror the Composition API structure, providing full TypeScript inference and composable ergonomics.'
+    explanation:
+      'Setup Stores in Pinia mirror the Composition API structure, providing full TypeScript inference and composable ergonomics.'
   },
   {
     id: 134,
     category: 'ARCHITECTURE',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you destructure reactive state and getters from a Pinia store without losing reactivity?',
+    question:
+      'How do you destructure reactive state and getters from a Pinia store without losing reactivity?',
     codeSnippet: `const authStore = useAuthStore();\n// How to destructure user and isAuthenticated?\nconst { user, isAuthenticated } = storeToRefs(authStore);\nconst { login } = authStore; // actions can be destructured directly`,
     options: [
       'Use `storeToRefs(store)` for state and getters; destructure actions directly from the store.',
@@ -520,13 +579,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use JSON.parse.'
     ],
     correctIndex: 0,
-    explanation: 'storeToRefs() wraps store state and getters into individual refs, preserving reactivity upon destructuring.'
+    explanation:
+      'storeToRefs() wraps store state and getters into individual refs, preserving reactivity upon destructuring.'
   },
   {
     id: 135,
     category: 'ARCHITECTURE',
     difficulty: 'INTERMEDIATE',
-    question: 'What is the distinction between Container (Smart) and Presentational (Dumb) components in Vue?',
+    question:
+      'What is the distinction between Container (Smart) and Presentational (Dumb) components in Vue?',
     options: [
       'Container views handle routing, state stores, and API calls; Presentational components receive props via defineProps and emit events via defineEmits.',
       'Smart components use CSS; Dumb components do not.',
@@ -534,13 +595,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'There is no distinction in Vue.'
     ],
     correctIndex: 0,
-    explanation: 'Separating smart container views from reusable dumb UI components maximizes UI testability, portability, and storybook development.'
+    explanation:
+      'Separating smart container views from reusable dumb UI components maximizes UI testability, portability, and storybook development.'
   },
   {
     id: 136,
     category: 'ARCHITECTURE',
     difficulty: 'ADVANCED',
-    question: 'You want a composable `useLocalStorage(key, defaultValue)` that automatically synchronizes a reactive ref with window.localStorage. What does it return?',
+    question:
+      'You want a composable `useLocalStorage(key, defaultValue)` that automatically synchronizes a reactive ref with window.localStorage. What does it return?',
     codeSnippet: `export function useLocalStorage<T>(key: string, initialValue: T): Ref<T> {\n  const data = ref<T>(loadStored() ?? initialValue) as Ref<T>;\n  watch(data, (newVal) => localStorage.setItem(key, JSON.stringify(newVal)), { deep: true });\n  return data;\n}`,
     options: [
       'A reactive `Ref<T>` that updates localStorage on write and updates memory when read.',
@@ -549,13 +612,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'A Vue directive.'
     ],
     correctIndex: 0,
-    explanation: 'Custom composables return refs that abstract browser APIs seamlessly behind standard reactive interfaces.'
+    explanation:
+      'Custom composables return refs that abstract browser APIs seamlessly behind standard reactive interfaces.'
   },
   {
     id: 137,
     category: 'ARCHITECTURE',
     difficulty: 'INTERMEDIATE',
-    question: 'Where should application-wide singleton services (like Axios/Fetch HTTP client and token storage) be placed?',
+    question:
+      'Where should application-wide singleton services (like Axios/Fetch HTTP client and token storage) be placed?',
     options: [
       '`/src/shared/api/` or `/src/core/`',
       '`/src/features/`',
@@ -563,13 +628,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       '`/node_modules/`'
     ],
     correctIndex: 0,
-    explanation: 'Core networking, authentication token handlers, and global infrastructure belong in shared or core layers.'
+    explanation:
+      'Core networking, authentication token handlers, and global infrastructure belong in shared or core layers.'
   },
   {
     id: 138,
     category: 'ARCHITECTURE',
     difficulty: 'EXPERT',
-    question: 'How do you design a high-performance DataGrid in Vue 3 that renders 20,000 rows without crashing the browser DOM?',
+    question:
+      'How do you design a high-performance DataGrid in Vue 3 that renders 20,000 rows without crashing the browser DOM?',
     options: [
       'Implement Virtual Scrolling (e.g. `vue-virtual-scroller` or custom virtual list) to render only the visible viewport elements.',
       'Render 20,000 `<tr v-for>` tags directly.',
@@ -577,13 +644,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Set `display: none` on 19,980 rows.'
     ],
     correctIndex: 0,
-    explanation: 'Virtual scrolling dynamically calculates scroll offsets and renders only the ~30 DOM rows visible in the viewport.'
+    explanation:
+      'Virtual scrolling dynamically calculates scroll offsets and renders only the ~30 DOM rows visible in the viewport.'
   },
   {
     id: 139,
     category: 'ARCHITECTURE',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you implement an empty state fallback when rendering a list in Vue?',
+    question:
+      'How do you implement an empty state fallback when rendering a list in Vue?',
     codeSnippet: `<template>\n  <div v-if="items.length > 0" class="grid">\n    <ProductCard v-for="item in items" :key="item.id" :product="item" />\n  </div>\n  <div v-else class="empty-state">No products found.</div>\n</template>`,
     options: [
       'Use `v-if="items.length > 0"` on the list container and `v-else` on the empty state placeholder.',
@@ -592,13 +661,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Leave the screen blank.'
     ],
     correctIndex: 0,
-    explanation: 'v-if / v-else conditionally renders the list or the fallback empty state card cleanly.'
+    explanation:
+      'v-if / v-else conditionally renders the list or the fallback empty state card cleanly.'
   },
   {
     id: 140,
     category: 'ARCHITECTURE',
     difficulty: 'ADVANCED',
-    question: 'How do you implement a global Toast / Notification system in Vue 3?',
+    question:
+      'How do you implement a global Toast / Notification system in Vue 3?',
     options: [
       'A Pinia toast store managing an array of active toast objects, rendered by a top-level `<ToastContainer />` in App.vue.',
       'Using `window.alert()` popups everywhere.',
@@ -606,13 +677,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Using jQuery toast.'
     ],
     correctIndex: 0,
-    explanation: 'A central store or composable managing reactive toast items enables dispatching notifications from anywhere in the app.'
+    explanation:
+      'A central store or composable managing reactive toast items enables dispatching notifications from anywhere in the app.'
   },
   {
     id: 141,
     category: 'ARCHITECTURE',
     difficulty: 'ADVANCED',
-    question: 'In multi-tenant SaaS architectures, how should Vue frontend requests identify the tenant to the Express backend?',
+    question:
+      'In multi-tenant SaaS architectures, how should Vue frontend requests identify the tenant to the Express backend?',
     options: [
       'By attaching the `x-tenant-id: vue-v3` header in a global HTTP fetch/axios interceptor.',
       'By asking the user to type the tenant slug on every page.',
@@ -620,13 +693,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'By hardcoding database queries in the frontend.'
     ],
     correctIndex: 0,
-    explanation: 'Centralizing tenant headers in HTTP interceptors guarantees all outgoing requests are properly tenant-scoped.'
+    explanation:
+      'Centralizing tenant headers in HTTP interceptors guarantees all outgoing requests are properly tenant-scoped.'
   },
   {
     id: 142,
     category: 'ARCHITECTURE',
     difficulty: 'EXPERT',
-    question: 'How do you structure theme toggling (Light / Dark mode) with Tailwind CSS in Vue 3?',
+    question:
+      'How do you structure theme toggling (Light / Dark mode) with Tailwind CSS in Vue 3?',
     options: [
       'Toggle the `.dark` class on `document.documentElement` (`<html>`) using a reactive `useTheme()` composable or `@vueuse/core useDark()`.',
       'Hardcode hex colors in inline style attributes.',
@@ -634,13 +709,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Build two separate applications.'
     ],
     correctIndex: 0,
-    explanation: 'Toggling the .dark class on the root HTML element activates Tailwind\'s dark: variant classes instantaneously.'
+    explanation:
+      "Toggling the .dark class on the root HTML element activates Tailwind's dark: variant classes instantaneously."
   },
   {
     id: 143,
     category: 'ARCHITECTURE',
     difficulty: 'INTERMEDIATE',
-    question: 'What is the role of `src/router/guards.ts` in an enterprise Vue application?',
+    question:
+      'What is the role of `src/router/guards.ts` in an enterprise Vue application?',
     options: [
       'To enforce navigation guards (`router.beforeEach`) that verify authentication tokens and RBAC permissions before granting route access.',
       'To encrypt HTML files.',
@@ -648,13 +725,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'To compile TypeScript.'
     ],
     correctIndex: 0,
-    explanation: 'Router guards intercept navigation, redirecting unauthenticated or unauthorized users before views render.'
+    explanation:
+      'Router guards intercept navigation, redirecting unauthenticated or unauthorized users before views render.'
   },
   {
     id: 144,
     category: 'ARCHITECTURE',
     difficulty: 'ADVANCED',
-    question: 'How should you organize views versus sub-components inside a feature directory in FAOS architecture?',
+    question:
+      'How should you organize views versus sub-components inside a feature directory in FAOS architecture?',
     codeSnippet: `src/features/users/\n├── components/     # Feature-specific reusable UI (UserCard, UserFilters)\n├── composables/    # Feature state and business logic (useUsers)\n└── views/          # Routable screens (UsersView.vue, UserDetailView.vue)`,
     options: [
       'Keep routable screens in `views/` and modular feature components in `components/`.',
@@ -663,13 +742,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Keep everything in main.ts.'
     ],
     correctIndex: 0,
-    explanation: 'Separating routable views from sub-components maintains clean router configurations and modular component design.'
+    explanation:
+      'Separating routable views from sub-components maintains clean router configurations and modular component design.'
   },
   {
     id: 145,
     category: 'ARCHITECTURE',
     difficulty: 'INTERMEDIATE',
-    question: 'Why should you avoid using the global Pinia store for transient local UI state (like dropdown open/close flags)?',
+    question:
+      'Why should you avoid using the global Pinia store for transient local UI state (like dropdown open/close flags)?',
     options: [
       'Transient UI state should remain local to the component using `ref(false)` to avoid polluting global state and causing unnecessary store bloat.',
       'Pinia cannot store boolean values.',
@@ -677,7 +758,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Pinia is only for database queries.'
     ],
     correctIndex: 0,
-    explanation: 'Component-local state belongs in local refs; global stores should be reserved for shared domain state (user, cart, auth).'
+    explanation:
+      'Component-local state belongs in local refs; global stores should be reserved for shared domain state (user, cart, auth).'
   },
 
   // SECTION 4: ROUTING
@@ -685,7 +767,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 146,
     category: 'ROUTING',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you configure a route in `src/router/index.ts` to lazy-load a view chunk on-demand?',
+    question:
+      'How do you configure a route in `src/router/index.ts` to lazy-load a view chunk on-demand?',
     codeSnippet: `const routes = [\n  {\n    path: '/dashboard',\n    name: 'dashboard',\n    component: () => import('./views/DashboardView.vue'),\n    meta: { requiresAuth: true }\n  }\n];`,
     options: [
       'Use dynamic import syntax `component: () => import("./DashboardView.vue")`.',
@@ -694,13 +777,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use `<iframe src="/dashboard">`.'
     ],
     correctIndex: 0,
-    explanation: 'Dynamic import() statements enable Vite to split routes into separate lazy JavaScript chunks downloaded only when visited.'
+    explanation:
+      'Dynamic import() statements enable Vite to split routes into separate lazy JavaScript chunks downloaded only when visited.'
   },
   {
     id: 147,
     category: 'ROUTING',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you access route parameters `/products/:id` inside `<script setup>` in Vue 3?',
+    question:
+      'How do you access route parameters `/products/:id` inside `<script setup>` in Vue 3?',
     codeSnippet: `import { useRoute } from 'vue-router';\n\nconst route = useRoute();\nconst productId = computed(() => route.params.id as string);`,
     options: [
       'Inject the route with `const route = useRoute()` and access `route.params.id`.',
@@ -709,13 +794,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Pass params via window.global.'
     ],
     correctIndex: 0,
-    explanation: 'useRoute() provides reactive access to the current route\'s params, query params, path, and meta information.'
+    explanation:
+      "useRoute() provides reactive access to the current route's params, query params, path, and meta information."
   },
   {
     id: 148,
     category: 'ROUTING',
     difficulty: 'ADVANCED',
-    question: 'How do you protect private routes so unauthenticated users are redirected to `/login` with a `redirect` query parameter?',
+    question:
+      'How do you protect private routes so unauthenticated users are redirected to `/login` with a `redirect` query parameter?',
     codeSnippet: `router.beforeEach((to) => {\n  const authStore = useAuthStore();\n  if (to.meta.requiresAuth && !authStore.isAuthenticated) {\n    return { name: 'login', query: { redirect: to.fullPath } };\n  }\n});`,
     options: [
       'Return a redirect location object `{ name: "login", query: { redirect: to.fullPath } }` from `router.beforeEach`.',
@@ -724,13 +811,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Delete the login route.'
     ],
     correctIndex: 0,
-    explanation: 'Returning a route location from beforeEach redirects navigation cleanly while storing the intended destination.'
+    explanation:
+      'Returning a route location from beforeEach redirects navigation cleanly while storing the intended destination.'
   },
   {
     id: 149,
     category: 'ROUTING',
     difficulty: 'ADVANCED',
-    question: 'A user is editing a form. If they try to navigate away with unsaved edits, which Vue Router lifecycle hook should you use to confirm?',
+    question:
+      'A user is editing a form. If they try to navigate away with unsaved edits, which Vue Router lifecycle hook should you use to confirm?',
     codeSnippet: `import { onBeforeRouteLeave } from 'vue-router';\n\nonBeforeRouteLeave((to, from) => {\n  if (isDirty.value) {\n    const answer = window.confirm('Discard unsaved changes?');\n    if (!answer) return false;\n  }\n});`,
     options: [
       'Use `onBeforeRouteLeave((to, from) => ...)` inside the component.',
@@ -739,13 +828,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use `watchEffect`.'
     ],
     correctIndex: 0,
-    explanation: 'onBeforeRouteLeave allows intercepting and canceling route departure if the user has unsaved edits.'
+    explanation:
+      'onBeforeRouteLeave allows intercepting and canceling route departure if the user has unsaved edits.'
   },
   {
     id: 150,
     category: 'ROUTING',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you configure a wildcard fallback route that catches all unmatched URLs and redirects to `/dashboard`?',
+    question:
+      'How do you configure a wildcard fallback route that catches all unmatched URLs and redirects to `/dashboard`?',
     options: [
       '`{ path: "/:pathMatch(.*)*", redirect: "/dashboard" }` as the last route definition.',
       '`{ path: "*", redirect: "/dashboard" }`',
@@ -753,13 +844,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Wildcards are not supported in Vue Router 4.'
     ],
     correctIndex: 0,
-    explanation: 'Vue Router 4 uses dynamic custom regex param `/:pathMatch(.*)*` for catch-all wildcard routes.'
+    explanation:
+      'Vue Router 4 uses dynamic custom regex param `/:pathMatch(.*)*` for catch-all wildcard routes.'
   },
   {
     id: 151,
     category: 'ROUTING',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you programmatically navigate to `/users` with query parameters in Vue 3?',
+    question:
+      'How do you programmatically navigate to `/users` with query parameters in Vue 3?',
     codeSnippet: `import { useRouter } from 'vue-router';\n\nconst router = useRouter();\nrouter.push({ path: '/users', query: { page: '1', sort: 'asc' } });`,
     options: [
       'Call `router.push({ path: "/users", query: { page: "1", sort: "asc" } })` using `useRouter()`.',
@@ -768,13 +861,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use `<a href="/users">`.'
     ],
     correctIndex: 0,
-    explanation: 'router.push() pushes a new entry onto the history stack programmatically with structured query objects.'
+    explanation:
+      'router.push() pushes a new entry onto the history stack programmatically with structured query objects.'
   },
   {
     id: 152,
     category: 'ROUTING',
     difficulty: 'BEGINNER',
-    question: 'How do you render navigation links with automatic active CSS classes in Vue?',
+    question:
+      'How do you render navigation links with automatic active CSS classes in Vue?',
     options: [
       '`<RouterLink to="/dashboard" active-class="bg-primary text-white">Dashboard</RouterLink>`',
       '`<a href="/dashboard" active="true">Dashboard</a>`',
@@ -782,13 +877,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       '`<NavLink href="/dashboard" />`'
     ],
     correctIndex: 0,
-    explanation: '<RouterLink> automatically adds the active-class and exact-active-class CSS classes when matching the current URL.'
+    explanation:
+      '<RouterLink> automatically adds the active-class and exact-active-class CSS classes when matching the current URL.'
   },
   {
     id: 153,
     category: 'ROUTING',
     difficulty: 'ADVANCED',
-    question: 'How do you automatically pass route parameters as props to a component without coupling to `useRoute()`?',
+    question:
+      'How do you automatically pass route parameters as props to a component without coupling to `useRoute()`?',
     codeSnippet: `// In router definition:\n{\n  path: '/user/:id',\n  component: UserProfile,\n  props: true // passes route.params as component props!\n}\n\n// In UserProfile.vue:\nconst { id } = defineProps<{ id: string }>();`,
     options: [
       'Set `props: true` on the route record definition in `routes.ts`.',
@@ -797,13 +894,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use `provide/inject`.'
     ],
     correctIndex: 0,
-    explanation: 'Setting `props: true` on a route record automatically maps route.params into component props, decoupling components from the router.'
+    explanation:
+      'Setting `props: true` on a route record automatically maps route.params into component props, decoupling components from the router.'
   },
   {
     id: 154,
     category: 'ROUTING',
     difficulty: 'INTERMEDIATE',
-    question: 'Where is the active route component rendered inside the application layout?',
+    question:
+      'Where is the active route component rendered inside the application layout?',
     options: [
       'Inside the `<RouterView />` tag.',
       'Inside `<div id="router">`.',
@@ -811,13 +910,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Inside `<slot name="router" />`.'
     ],
     correctIndex: 0,
-    explanation: '<RouterView /> is the outlet component that renders the matching component for the current URL route.'
+    explanation:
+      '<RouterView /> is the outlet component that renders the matching component for the current URL route.'
   },
   {
     id: 155,
     category: 'ROUTING',
     difficulty: 'EXPERT',
-    question: 'How do you configure smooth scroll behavior so the page scrolls to the top on new route navigation but restores previous position on back/forward buttons?',
+    question:
+      'How do you configure smooth scroll behavior so the page scrolls to the top on new route navigation but restores previous position on back/forward buttons?',
     codeSnippet: `export const router = createRouter({\n  history: createWebHistory(),\n  routes,\n  scrollBehavior(to, from, savedPosition) {\n    if (savedPosition) return savedPosition;\n    return { top: 0, behavior: 'smooth' };\n  }\n});`,
     options: [
       'Provide a `scrollBehavior(to, from, savedPosition)` function returning `savedPosition` or `{ top: 0 }`.',
@@ -826,7 +927,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Scroll restoration is not possible in SPAs.'
     ],
     correctIndex: 0,
-    explanation: 'scrollBehavior handles scroll positioning across history traversals and route navigations cleanly.'
+    explanation:
+      'scrollBehavior handles scroll positioning across history traversals and route navigations cleanly.'
   },
 
   // SECTION 5: FORMS & ZOD
@@ -834,7 +936,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 156,
     category: 'FORMS',
     difficulty: 'INTERMEDIATE',
-    question: 'You are validating a user registration form with Zod in Vue. How do you parse and extract validation errors for each field?',
+    question:
+      'You are validating a user registration form with Zod in Vue. How do you parse and extract validation errors for each field?',
     codeSnippet: `const RegisterSchema = z.object({\n  email: z.string().email('Invalid email address'),\n  password: z.string().min(8, 'Must be at least 8 chars'),\n});\n\nconst result = RegisterSchema.safeParse(formData.value);\nif (!result.success) {\n  errors.value = result.error.flatten().fieldErrors;\n}`,
     options: [
       'Use `schema.safeParse(formData)` and extract field errors with `result.error.flatten().fieldErrors`.',
@@ -843,13 +946,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Validate only on the backend.'
     ],
     correctIndex: 0,
-    explanation: 'Zod safeParse() returns a structured error tree that can be flattened into a type-safe Record<string, string[]> map.'
+    explanation:
+      'Zod safeParse() returns a structured error tree that can be flattened into a type-safe Record<string, string[]> map.'
   },
   {
     id: 157,
     category: 'FORMS',
     difficulty: 'INTERMEDIATE',
-    question: 'What is the purpose of `v-model.trim` and `v-model.number` modifiers in Vue?',
+    question:
+      'What is the purpose of `v-model.trim` and `v-model.number` modifiers in Vue?',
     options: [
       '`.trim` automatically removes leading/trailing whitespace; `.number` typecasts the input value to a JavaScript number.',
       'They encrypt form fields.',
@@ -857,13 +962,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'They prevent form submission.'
     ],
     correctIndex: 0,
-    explanation: 'v-model modifiers automatically sanitize inputs (.trim strips whitespace, .number parses floats/ints, .lazy syncs on change).'
+    explanation:
+      'v-model modifiers automatically sanitize inputs (.trim strips whitespace, .number parses floats/ints, .lazy syncs on change).'
   },
   {
     id: 158,
     category: 'FORMS',
     difficulty: 'ADVANCED',
-    question: 'How do you implement cross-field password confirmation validation using Zod?',
+    question:
+      'How do you implement cross-field password confirmation validation using Zod?',
     codeSnippet: `const PasswordsSchema = z.object({\n  password: z.string().min(8),\n  confirmPassword: z.string()\n}).refine(data => data.password === data.confirmPassword, {\n  message: "Passwords must match",\n  path: ["confirmPassword"]\n});`,
     options: [
       'Use the `.refine()` method on the Zod object with a custom `path: ["confirmPassword"]`.',
@@ -872,13 +979,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Cross-field validation is not possible in Zod.'
     ],
     correctIndex: 0,
-    explanation: 'Zod .refine() validates multi-field dependencies and maps the resulting error message directly to the target field path.'
+    explanation:
+      'Zod .refine() validates multi-field dependencies and maps the resulting error message directly to the target field path.'
   },
   {
     id: 159,
     category: 'FORMS',
     difficulty: 'INTERMEDIATE',
-    question: 'When should validation error messages be displayed under an input field for the best user experience?',
+    question:
+      'When should validation error messages be displayed under an input field for the best user experience?',
     options: [
       'When the field has been touched/blurred (`touched.email`) or on form submit attempt, AND validation fails.',
       'Immediately when the blank form renders.',
@@ -886,13 +995,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Only in console.log.'
     ],
     correctIndex: 0,
-    explanation: 'Checking touched || submitted prevents showing aggressive error messages on fresh, untouched forms.'
+    explanation:
+      'Checking touched || submitted prevents showing aggressive error messages on fresh, untouched forms.'
   },
   {
     id: 160,
     category: 'FORMS',
     difficulty: 'ADVANCED',
-    question: 'How do you manage dynamic FormArrays (e.g. adding/removing multiple invoice items) in Vue 3?',
+    question:
+      'How do you manage dynamic FormArrays (e.g. adding/removing multiple invoice items) in Vue 3?',
     codeSnippet: `const items = ref([{ title: '', price: 0 }]);\n\nfunction addItem() {\n  items.value.push({ title: '', price: 0 });\n}\nfunction removeItem(index: number) {\n  items.value.splice(index, 1);\n}`,
     options: [
       'Maintain a reactive array ref with helper methods `.push()` and `.splice()`.',
@@ -901,13 +1012,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Dynamic arrays cannot be rendered in Vue.'
     ],
     correctIndex: 0,
-    explanation: 'Managing dynamic form rows with reactive array methods provides flexible, variable-length form lists.'
+    explanation:
+      'Managing dynamic form rows with reactive array methods provides flexible, variable-length form lists.'
   },
   {
     id: 161,
     category: 'FORMS',
     difficulty: 'BEGINNER',
-    question: 'How do you prevent the browser from reloading the page when a `<form>` is submitted in Vue?',
+    question:
+      'How do you prevent the browser from reloading the page when a `<form>` is submitted in Vue?',
     options: [
       '`<form @submit.prevent="onSubmit">`',
       '`<form (submit)="onSubmit">`',
@@ -915,13 +1028,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       '`<form prevent>`'
     ],
     correctIndex: 0,
-    explanation: 'The event modifier `@submit.prevent` automatically calls `event.preventDefault()` before executing the handler.'
+    explanation:
+      'The event modifier `@submit.prevent` automatically calls `event.preventDefault()` before executing the handler.'
   },
   {
     id: 162,
     category: 'FORMS',
     difficulty: 'ADVANCED',
-    question: 'The backend returns a 422 Unprocessable Entity with `{ errors: { email: ["Email already taken"] } }`. How do you display this in the form?',
+    question:
+      'The backend returns a 422 Unprocessable Entity with `{ errors: { email: ["Email already taken"] } }`. How do you display this in the form?',
     options: [
       'Catch the error in your API composable/mutation and merge the backend error object into your local `errors` ref.',
       'Alert the user with alert().',
@@ -929,13 +1044,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Reload the page.'
     ],
     correctIndex: 0,
-    explanation: 'Mapping backend field errors into the local form errors state displays contextual inline errors next to the affected inputs.'
+    explanation:
+      'Mapping backend field errors into the local form errors state displays contextual inline errors next to the affected inputs.'
   },
   {
     id: 163,
     category: 'FORMS',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you disable the submit button while an asynchronous form submission is in flight?',
+    question:
+      'How do you disable the submit button while an asynchronous form submission is in flight?',
     codeSnippet: `<button type="submit" :disabled="isSubmitting">\n  <span v-if="isSubmitting">Saving...</span>\n  <span v-else>Save Changes</span>\n</button>`,
     options: [
       'Bind `:disabled="isSubmitting"` using a reactive boolean loading ref.',
@@ -944,13 +1061,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use setTimeout.'
     ],
     correctIndex: 0,
-    explanation: 'Binding :disabled to the mutation\'s loading state prevents accidental duplicate submissions.'
+    explanation:
+      "Binding :disabled to the mutation's loading state prevents accidental duplicate submissions."
   },
   {
     id: 164,
     category: 'FORMS',
     difficulty: 'ADVANCED',
-    question: 'How do you build an asynchronous username uniqueness validator with debouncing in Vue?',
+    question:
+      'How do you build an asynchronous username uniqueness validator with debouncing in Vue?',
     codeSnippet: `import { watchDebounced } from '@vueuse/core';\n\nwatchDebounced(username, async (newVal) => {\n  if (!newVal) return;\n  isChecking.value = true;\n  const isTaken = await checkUsernameApi(newVal);\n  isChecking.value = false;\n  usernameError.value = isTaken ? 'Username is already taken' : '';\n}, { debounce: 400 });`,
     options: [
       'Use a debounced watcher (`watchDebounced` from VueUse or setTimeout) that calls the API after typing pauses.',
@@ -959,13 +1078,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Async validation cannot be done in Vue.'
     ],
     correctIndex: 0,
-    explanation: 'Debouncing ensures network requests fire only after the user stops typing (e.g. 400ms), avoiding API flooding.'
+    explanation:
+      'Debouncing ensures network requests fire only after the user stops typing (e.g. 400ms), avoiding API flooding.'
   },
   {
     id: 165,
     category: 'FORMS',
     difficulty: 'BEGINNER',
-    question: 'How do you reset a reactive form object back to its initial state in Vue 3?',
+    question:
+      'How do you reset a reactive form object back to its initial state in Vue 3?',
     codeSnippet: `const initialForm = { email: '', name: '', role: 'user' };\nconst form = reactive({ ...initialForm });\n\nfunction reset() {\n  Object.assign(form, initialForm);\n}`,
     options: [
       'Use `Object.assign(form, initialForm)` to reset reactive properties in-place.',
@@ -974,7 +1095,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Restart the browser.'
     ],
     correctIndex: 0,
-    explanation: 'Object.assign(form, initial) mutates the existing reactive proxy back to initial values without losing its reference.'
+    explanation:
+      'Object.assign(form, initial) mutates the existing reactive proxy back to initial values without losing its reference.'
   },
 
   // SECTION 6: HTTP & TANSTACK VUE QUERY
@@ -982,7 +1104,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 166,
     category: 'HTTP_QUERY',
     difficulty: 'INTERMEDIATE',
-    question: 'You create a new post via a POST mutation in TanStack Vue Query. What should you do on success to update cached lists?',
+    question:
+      'You create a new post via a POST mutation in TanStack Vue Query. What should you do on success to update cached lists?',
     codeSnippet: `const queryClient = useQueryClient();\nconst { mutate } = useMutation({\n  mutationFn: (newPost) => api.createPost(newPost),\n  onSuccess: () => {\n    queryClient.invalidateQueries({ queryKey: ['posts'] });\n  }\n});`,
     options: [
       'Call `queryClient.invalidateQueries({ queryKey: ["posts"] })` to mark the cache stale and trigger auto-refetching.',
@@ -991,13 +1114,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Clear all browser storage.'
     ],
     correctIndex: 0,
-    explanation: 'Invalidating queries by queryKey instructs TanStack Query to refetch fresh server data in the background automatically.'
+    explanation:
+      'Invalidating queries by queryKey instructs TanStack Query to refetch fresh server data in the background automatically.'
   },
   {
     id: 167,
     category: 'HTTP_QUERY',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you execute an asynchronous data query using TanStack Vue Query (`@tanstack/vue-query`)?',
+    question:
+      'How do you execute an asynchronous data query using TanStack Vue Query (`@tanstack/vue-query`)?',
     codeSnippet: `import { useQuery } from '@tanstack/vue-query';\n\nconst { data: posts, isLoading, isError, error } = useQuery({\n  queryKey: ['posts'],\n  queryFn: () => fetchPostsApi(),\n  staleTime: 1000 * 60 * 5\n});`,
     options: [
       'Use `useQuery({ queryKey, queryFn })` which returns reactive `data`, `isLoading`, `isError` refs.',
@@ -1006,13 +1131,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use jQuery.ajax.'
     ],
     correctIndex: 0,
-    explanation: 'useQuery() manages caching, refetch on window focus, loading state, error state, and retry logic seamlessly.'
+    explanation:
+      'useQuery() manages caching, refetch on window focus, loading state, error state, and retry logic seamlessly.'
   },
   {
     id: 168,
     category: 'HTTP_QUERY',
     difficulty: 'ADVANCED',
-    question: 'How do you cancel an in-flight HTTP request when a user types a new character in an autocomplete search box?',
+    question:
+      'How do you cancel an in-flight HTTP request when a user types a new character in an autocomplete search box?',
     codeSnippet: `let controller: AbortController | null = null;\n\nasync function search(query: string) {\n  controller?.abort();\n  controller = new AbortController();\n  return fetch(\`/api/search?q=\${query}\`, { signal: controller.signal });\n}`,
     options: [
       'Use an `AbortController` and pass its `signal` into the fetch/axios request, calling `controller.abort()` before new requests.',
@@ -1021,13 +1148,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'In-flight requests cannot be canceled in JavaScript.'
     ],
     correctIndex: 0,
-    explanation: 'AbortController allows canceling in-flight HTTP network requests immediately when superseded by newer user input.'
+    explanation:
+      'AbortController allows canceling in-flight HTTP network requests immediately when superseded by newer user input.'
   },
   {
     id: 169,
     category: 'HTTP_QUERY',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you implement automatic retries for transient 500/network failures in TanStack Query?',
+    question:
+      'How do you implement automatic retries for transient 500/network failures in TanStack Query?',
     options: [
       'Set `retry: 3` and `retryDelay: (attempt) => Math.min(attempt * 1000, 3000)` in query options.',
       'Write a while loop around fetch.',
@@ -1035,13 +1164,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Retries are handled by the operating system.'
     ],
     correctIndex: 0,
-    explanation: 'TanStack Query provides configurable exponential retry options out of the box.'
+    explanation:
+      'TanStack Query provides configurable exponential retry options out of the box.'
   },
   {
     id: 170,
     category: 'HTTP_QUERY',
     difficulty: 'ADVANCED',
-    question: 'A dashboard polls `/api/metrics` every 5 seconds. You introduce real-time Socket.IO events. What is the recommended production architecture?',
+    question:
+      'A dashboard polls `/api/metrics` every 5 seconds. You introduce real-time Socket.IO events. What is the recommended production architecture?',
     options: [
       'Use Socket.IO events for instant cache updates (`queryClient.setQueryData`) and retain slow background polling (60s) as a resilient fallback.',
       'Keep 5-second polling and ignore WebSockets.',
@@ -1049,13 +1180,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Reload the whole page on every socket event.'
     ],
     correctIndex: 0,
-    explanation: 'Real-time WebSocket events provide instant updates while a slow background poll guarantees eventual consistency on disconnect.'
+    explanation:
+      'Real-time WebSocket events provide instant updates while a slow background poll guarantees eventual consistency on disconnect.'
   },
   {
     id: 171,
     category: 'HTTP_QUERY',
     difficulty: 'ADVANCED',
-    question: 'How should an HTTP fetch interceptor handle a 401 Unauthorized response globally in Vue?',
+    question:
+      'How should an HTTP fetch interceptor handle a 401 Unauthorized response globally in Vue?',
     options: [
       'Clear the auth store, remove expired tokens, and redirect to `/login?redirect=...` via `router.push()`.',
       'Show an alert and crash the app.',
@@ -1063,13 +1196,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Ignore the 401 response.'
     ],
     correctIndex: 0,
-    explanation: 'Global 401 handling clears invalid sessions and routes users back to login cleanly.'
+    explanation:
+      'Global 401 handling clears invalid sessions and routes users back to login cleanly.'
   },
   {
     id: 172,
     category: 'HTTP_QUERY',
     difficulty: 'EXPERT',
-    question: 'How do you implement an Optimistic UI update when a user clicks "Like" on a post before the backend responds?',
+    question:
+      'How do you implement an Optimistic UI update when a user clicks "Like" on a post before the backend responds?',
     codeSnippet: `const { mutate } = useMutation({\n  mutationFn: likePostApi,\n  onMutate: async (postId) => {\n    await queryClient.cancelQueries({ queryKey: ['posts'] });\n    const prevPosts = queryClient.getQueryData(['posts']);\n    queryClient.setQueryData(['posts'], (old: any) => old.map(p => p.id === postId ? { ...p, likes: p.likes + 1 } : p));\n    return { prevPosts };\n  },\n  onError: (_err, _vars, context) => {\n    queryClient.setQueryData(['posts'], context?.prevPosts);\n  }\n});`,
     options: [
       'Update the query cache in `onMutate`, store the previous snapshot, and roll back in `onError` if the network request fails.',
@@ -1078,13 +1213,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Optimistic updates are not supported in Vue.'
     ],
     correctIndex: 0,
-    explanation: 'Optimistic mutations provide instant UI updates with automatic rollback capabilities if server errors occur.'
+    explanation:
+      'Optimistic mutations provide instant UI updates with automatic rollback capabilities if server errors occur.'
   },
   {
     id: 173,
     category: 'HTTP_QUERY',
     difficulty: 'BEGINNER',
-    question: 'How do you pass query parameters `?page=1&limit=10` using URLSearchParams in fetch requests?',
+    question:
+      'How do you pass query parameters `?page=1&limit=10` using URLSearchParams in fetch requests?',
     options: [
       '`const params = new URLSearchParams({ page: "1", limit: "10" }); fetch("/api/users?" + params);`',
       '`fetch("/api/users", { body: { page: 1, limit: 10 } });`',
@@ -1092,13 +1229,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       '`fetch("/api/users", { params: true });`'
     ],
     correctIndex: 0,
-    explanation: 'URLSearchParams encodes structured key-value query parameters into standard URI query strings.'
+    explanation:
+      'URLSearchParams encodes structured key-value query parameters into standard URI query strings.'
   },
   {
     id: 174,
     category: 'HTTP_QUERY',
     difficulty: 'ADVANCED',
-    question: 'How do you create a custom composable `useApi<T>(url)` for typed data fetching with loading and error state?',
+    question:
+      'How do you create a custom composable `useApi<T>(url)` for typed data fetching with loading and error state?',
     codeSnippet: `export function useApi<T>(url: string) {\n  const data = ref<T | null>(null);\n  const isLoading = ref(true);\n  const error = ref<Error | null>(null);\n  onMounted(async () => {\n    try {\n      data.value = await http.get<T>(url);\n    } catch (e: any) {\n      error.value = e;\n    } finally {\n      isLoading.value = false;\n    }\n  });\n  return { data, isLoading, error };\n}`,
     options: [
       'Encapsulate data, isLoading, and error refs inside a reusable composable function.',
@@ -1107,7 +1246,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use global eval().'
     ],
     correctIndex: 0,
-    explanation: 'Custom API composables centralize loading, error, and data ref lifecycles.'
+    explanation:
+      'Custom API composables centralize loading, error, and data ref lifecycles.'
   },
   {
     id: 175,
@@ -1121,7 +1261,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'The CSS animation delay.'
     ],
     correctIndex: 0,
-    explanation: 'staleTime prevents excessive refetches by treating recently loaded data as fresh for the configured time window.'
+    explanation:
+      'staleTime prevents excessive refetches by treating recently loaded data as fresh for the configured time window.'
   },
 
   // SECTION 7: PERFORMANCE
@@ -1129,7 +1270,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 176,
     category: 'PERFORMANCE',
     difficulty: 'INTERMEDIATE',
-    question: 'A page contains a heavy 3D chart component that is below the fold. How do you lazy-load it on-demand in Vue 3?',
+    question:
+      'A page contains a heavy 3D chart component that is below the fold. How do you lazy-load it on-demand in Vue 3?',
     codeSnippet: `import { defineAsyncComponent } from 'vue';\n\nconst HeavyChart = defineAsyncComponent(() =>\n  import('./components/HeavyChart.vue')\n);`,
     options: [
       'Use `defineAsyncComponent(() => import("./HeavyChart.vue"))` to load the chunk only when rendered.',
@@ -1138,28 +1280,32 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use `setTimeout`.'
     ],
     correctIndex: 0,
-    explanation: 'defineAsyncComponent creates an async component that is split into a separate JavaScript bundle loaded on demand.'
+    explanation:
+      'defineAsyncComponent creates an async component that is split into a separate JavaScript bundle loaded on demand.'
   },
   {
     id: 177,
     category: 'PERFORMANCE',
     difficulty: 'INTERMEDIATE',
-    question: 'Why is providing a unique `:key` mandatory in `v-for` loops rendering lists?',
+    question:
+      'Why is providing a unique `:key` mandatory in `v-for` loops rendering lists?',
     codeSnippet: `<tr v-for="user in users" :key="user.id">\n  <td>{{ user.name }}</td>\n</tr>`,
     options: [
-      'The `:key` allows Vue\'s Virtual DOM diffing algorithm to identify and track elements, moving existing DOM nodes rather than destroying and recreating them.',
+      "The `:key` allows Vue's Virtual DOM diffing algorithm to identify and track elements, moving existing DOM nodes rather than destroying and recreating them.",
       'Keys make CSS colors brighter.',
       'Keys are required by HTML5 specification.',
       'Keys prevent TypeScript errors only.'
     ],
     correctIndex: 0,
-    explanation: 'Unique stable keys enable efficient Virtual DOM reconciliation during array sorting, insertions, and deletions.'
+    explanation:
+      'Unique stable keys enable efficient Virtual DOM reconciliation during array sorting, insertions, and deletions.'
   },
   {
     id: 178,
     category: 'PERFORMANCE',
     difficulty: 'ADVANCED',
-    question: 'What is the purpose of the `<KeepAlive>` built-in component in Vue 3?',
+    question:
+      'What is the purpose of the `<KeepAlive>` built-in component in Vue 3?',
     codeSnippet: `<RouterView v-slot="{ Component }">\n  <KeepAlive include="DashboardView,PostsView">\n    <component :is="Component" />\n  </KeepAlive>\n</RouterView>`,
     options: [
       'It caches inactive component instances in memory without destroying them, preserving their state when switching between views.',
@@ -1168,7 +1314,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'It backs up files to disk.'
     ],
     correctIndex: 0,
-    explanation: '<KeepAlive> caches component DOM and reactive state in memory so switching back does not trigger fresh mount lifecycles.'
+    explanation:
+      '<KeepAlive> caches component DOM and reactive state in memory so switching back does not trigger fresh mount lifecycles.'
   },
   {
     id: 179,
@@ -1177,13 +1324,14 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     question: 'What is the `<Teleport>` component used for in Vue 3?',
     codeSnippet: `<Teleport to="body">\n  <div v-if="isOpen" class="modal-overlay">\n    <div class="modal-content">Modal Content</div>\n  </div>\n</Teleport>`,
     options: [
-      'It renders a component\'s template subtree into a different DOM node (like `document.body`) outside of its parent component hierarchy.',
+      "It renders a component's template subtree into a different DOM node (like `document.body`) outside of its parent component hierarchy.",
       'It teleports data across servers.',
       'It translates languages.',
       'It is deprecated in Vue 3.'
     ],
     correctIndex: 0,
-    explanation: '<Teleport to="selector"> moves modal overlays, popovers, and tooltips into target DOM nodes (like <body>) cleanly.'
+    explanation:
+      '<Teleport to="selector"> moves modal overlays, popovers, and tooltips into target DOM nodes (like <body>) cleanly.'
   },
   {
     id: 180,
@@ -1198,7 +1346,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'It is an alias for computed().'
     ],
     correctIndex: 0,
-    explanation: 'v-memo skips Virtual DOM updates for large lists unless watched values change, optimizing table rendering performance.'
+    explanation:
+      'v-memo skips Virtual DOM updates for large lists unless watched values change, optimizing table rendering performance.'
   },
   {
     id: 181,
@@ -1212,13 +1361,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'It is deprecated.'
     ],
     correctIndex: 0,
-    explanation: 'v-once treats elements as static content after initial render, reducing Virtual DOM diffing overhead.'
+    explanation:
+      'v-once treats elements as static content after initial render, reducing Virtual DOM diffing overhead.'
   },
   {
     id: 182,
     category: 'PERFORMANCE',
     difficulty: 'EXPERT',
-    question: 'How do you inspect bundle size and identify bloated packages in a Vite Vue 3 project?',
+    question:
+      'How do you inspect bundle size and identify bloated packages in a Vite Vue 3 project?',
     options: [
       'Install `rollup-plugin-visualizer` in vite.config.ts to generate an interactive chunk footprint visualizer map.',
       'Count the number of .vue files in src/.',
@@ -1226,7 +1377,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Ask the browser console.'
     ],
     correctIndex: 0,
-    explanation: 'rollup-plugin-visualizer produces an interactive treemap diagram of bundle chunks and dependencies.'
+    explanation:
+      'rollup-plugin-visualizer produces an interactive treemap diagram of bundle chunks and dependencies.'
   },
   {
     id: 183,
@@ -1241,13 +1393,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'A router guard.'
     ],
     correctIndex: 0,
-    explanation: '<Suspense> coordinates async component resolution (top-level await in <script setup>) with fallback skeleton slots.'
+    explanation:
+      '<Suspense> coordinates async component resolution (top-level await in <script setup>) with fallback skeleton slots.'
   },
   {
     id: 184,
     category: 'PERFORMANCE',
     difficulty: 'ADVANCED',
-    question: 'Why does calling a method directly in template interpolation `{{ computeTotal(item) }}` harm performance?',
+    question:
+      'Why does calling a method directly in template interpolation `{{ computeTotal(item) }}` harm performance?',
     options: [
       'The method executes on EVERY single component re-render; using `computed()` or memoized composables avoids redundant recalculations.',
       'Methods cannot return numbers in templates.',
@@ -1255,13 +1409,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'It causes database locks.'
     ],
     correctIndex: 0,
-    explanation: 'Template methods re-run on every render pass. Computed properties are cached and only recalculate when dependencies change.'
+    explanation:
+      'Template methods re-run on every render pass. Computed properties are cached and only recalculate when dependencies change.'
   },
   {
     id: 185,
     category: 'PERFORMANCE',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you create a custom Vue directive (e.g. `v-focus`) to automatically focus an input element upon mount?',
+    question:
+      'How do you create a custom Vue directive (e.g. `v-focus`) to automatically focus an input element upon mount?',
     codeSnippet: `const vFocus = {\n  mounted: (el: HTMLElement) => el.focus()\n};`,
     options: [
       'Declare an object with lifecycle hooks (`mounted: (el) => el.focus()`) prefixed with `v` (e.g. `vFocus`).',
@@ -1270,7 +1426,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Directives cannot access DOM elements.'
     ],
     correctIndex: 0,
-    explanation: 'Custom directives provide low-level DOM access hooks (created, mounted, updated, unmounted).'
+    explanation:
+      'Custom directives provide low-level DOM access hooks (created, mounted, updated, unmounted).'
   },
 
   // SECTION 8: TESTING
@@ -1278,7 +1435,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 186,
     category: 'TESTING',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you mount a Vue component in unit tests using `@vue/test-utils` and Vitest?',
+    question:
+      'How do you mount a Vue component in unit tests using `@vue/test-utils` and Vitest?',
     codeSnippet: `import { mount } from '@vue/test-utils';\nimport Counter from '@/components/Counter.vue';\n\ntest('increments count on click', async () => {\n  const wrapper = mount(Counter, { props: { initial: 5 } });\n  await wrapper.find('button').trigger('click');\n  expect(wrapper.text()).toContain('Count: 6');\n});`,
     options: [
       'Use `mount(Component, { props, global })` and interact using `wrapper.find().trigger()`.',
@@ -1287,13 +1445,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use `console.assert()` in main.ts.'
     ],
     correctIndex: 0,
-    explanation: 'mount() from @vue/test-utils renders a component in a test environment with DOM querying and event trigger helpers.'
+    explanation:
+      'mount() from @vue/test-utils renders a component in a test environment with DOM querying and event trigger helpers.'
   },
   {
     id: 187,
     category: 'TESTING',
     difficulty: 'ADVANCED',
-    question: 'How do you test a Pinia store action in isolation without mounting UI components?',
+    question:
+      'How do you test a Pinia store action in isolation without mounting UI components?',
     codeSnippet: `import { setActivePinia, createPinia } from 'pinia';\nimport { useCounterStore } from './counter';\n\nbeforeEach(() => {\n  setActivePinia(createPinia());\n});\n\ntest('increments count', () => {\n  const store = useCounterStore();\n  store.increment();\n  expect(store.count).toBe(1);\n});`,
     options: [
       'Initialize Pinia with `setActivePinia(createPinia())` in `beforeEach` and call store actions directly.',
@@ -1302,13 +1462,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use Cypress.'
     ],
     correctIndex: 0,
-    explanation: 'setActivePinia() creates a clean, isolated Pinia context for headless store testing.'
+    explanation:
+      'setActivePinia() creates a clean, isolated Pinia context for headless store testing.'
   },
   {
     id: 188,
     category: 'TESTING',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you mock an HTTP API call inside a Vue composable test using Vitest?',
+    question:
+      'How do you mock an HTTP API call inside a Vue composable test using Vitest?',
     codeSnippet: `import { vi } from 'vitest';\nimport * as api from '@/shared/api/http';\n\nvi.spyOn(api.http, 'get').mockResolvedValue([{ id: 1, name: 'Test' }]);`,
     options: [
       'Use `vi.spyOn(http, "get").mockResolvedValue(mockData)` to intercept the call.',
@@ -1317,13 +1479,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Mocking is not supported in Vitest.'
     ],
     correctIndex: 0,
-    explanation: 'vi.spyOn().mockResolvedValue() intercepts asynchronous module methods and returns mock fixtures.'
+    explanation:
+      'vi.spyOn().mockResolvedValue() intercepts asynchronous module methods and returns mock fixtures.'
   },
   {
     id: 189,
     category: 'TESTING',
     difficulty: 'BEGINNER',
-    question: 'Why must you `await` event triggers when testing Vue components (e.g. `await button.trigger("click")`)?',
+    question:
+      'Why must you `await` event triggers when testing Vue components (e.g. `await button.trigger("click")`)?',
     options: [
       'Vue updates the DOM asynchronously on the next tick; awaiting the trigger ensures DOM re-rendering is complete before assertions run.',
       'JavaScript functions are all async by default.',
@@ -1331,13 +1495,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Awaiting is not required.'
     ],
     correctIndex: 0,
-    explanation: 'Awaiting trigger() waits for Vue\'s nextTick DOM update cycle to complete before running assertions.'
+    explanation:
+      "Awaiting trigger() waits for Vue's nextTick DOM update cycle to complete before running assertions."
   },
   {
     id: 190,
     category: 'TESTING',
     difficulty: 'ADVANCED',
-    question: 'How do you test a custom composable with reactive effects outside a component using `withSetup`?',
+    question:
+      'How do you test a custom composable with reactive effects outside a component using `withSetup`?',
     codeSnippet: `export function withSetup(composable: () => any) {\n  let result: any;\n  const app = createApp({\n    setup() {\n      result = composable();\n      return () => {};\n    }\n  });\n  app.mount(document.createElement('div'));\n  return { result, app };\n}`,
     options: [
       'Create a test harness component with `createApp` that invokes the composable inside its `setup()` context.',
@@ -1346,7 +1512,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Use eval().'
     ],
     correctIndex: 0,
-    explanation: 'A test harness executes composables inside a valid Vue app context, enabling provide/inject and lifecycle testing.'
+    explanation:
+      'A test harness executes composables inside a valid Vue app context, enabling provide/inject and lifecycle testing.'
   },
 
   // SECTION 9: SECURITY
@@ -1354,7 +1521,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 191,
     category: 'SECURITY',
     difficulty: 'ADVANCED',
-    question: 'Why should JWT authentication session tokens be stored in HTTP-Only, Secure, SameSite cookies rather than localStorage?',
+    question:
+      'Why should JWT authentication session tokens be stored in HTTP-Only, Secure, SameSite cookies rather than localStorage?',
     options: [
       'HTTP-Only cookies cannot be read or stolen by malicious JavaScript code in the event of an XSS (Cross-Site Scripting) vulnerability.',
       'localStorage has a 5MB limit.',
@@ -1362,13 +1530,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'localStorage is deprecated.'
     ],
     correctIndex: 0,
-    explanation: 'HTTP-Only cookies prevent XSS token theft because the browser handles cookies automatically without JavaScript API exposure.'
+    explanation:
+      'HTTP-Only cookies prevent XSS token theft because the browser handles cookies automatically without JavaScript API exposure.'
   },
   {
     id: 192,
     category: 'SECURITY',
     difficulty: 'INTERMEDIATE',
-    question: 'Why is using `v-html` dangerous when rendering user-submitted text, and how should it be secured?',
+    question:
+      'Why is using `v-html` dangerous when rendering user-submitted text, and how should it be secured?',
     options: [
       '`v-html` renders raw HTML without escaping, exposing the app to XSS attacks; sanitize input with DOMPurify before rendering.',
       'v-html causes memory leaks.',
@@ -1376,28 +1546,32 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'v-html only works in Chrome.'
     ],
     correctIndex: 0,
-    explanation: 'v-html executes scripts if untrusted input is injected. Use standard {{ interpolations }} or sanitize with DOMPurify.'
+    explanation:
+      'v-html executes scripts if untrusted input is injected. Use standard {{ interpolations }} or sanitize with DOMPurify.'
   },
   {
     id: 193,
     category: 'SECURITY',
     difficulty: 'INTERMEDIATE',
-    question: 'How do you implement Role-Based Access Control (RBAC) in Vue Router navigation guards?',
+    question:
+      'How do you implement Role-Based Access Control (RBAC) in Vue Router navigation guards?',
     codeSnippet: `router.beforeEach((to) => {\n  const auth = useAuthStore();\n  if (to.meta.roles && !to.meta.roles.includes(auth.user?.role)) {\n    return { name: 'unauthorized' };\n  }\n});`,
     options: [
-      'Check `to.meta.roles` in `router.beforeEach` against the authenticated user\'s role and redirect unauthorized users.',
+      "Check `to.meta.roles` in `router.beforeEach` against the authenticated user's role and redirect unauthorized users.",
       'Hide buttons with CSS `opacity: 0`.',
       'Check roles in index.html.',
       'Store passwords in client code.'
     ],
     correctIndex: 0,
-    explanation: 'Route meta properties paired with beforeEach guards enforce server-synchronized authorization rules.'
+    explanation:
+      'Route meta properties paired with beforeEach guards enforce server-synchronized authorization rules.'
   },
   {
     id: 194,
     category: 'SECURITY',
     difficulty: 'ADVANCED',
-    question: 'Why does the backend Express server reject requests with custom headers like `x-tenant-id` if CORS middleware does not allowlist them?',
+    question:
+      'Why does the backend Express server reject requests with custom headers like `x-tenant-id` if CORS middleware does not allowlist them?',
     options: [
       'Browsers send an HTTP OPTIONS preflight; if `Access-Control-Allow-Headers` lacks `x-tenant-id`, the browser terminates the request.',
       'Because Node.js cannot read headers with dashes.',
@@ -1405,13 +1579,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Because Express only allows GET.'
     ],
     correctIndex: 0,
-    explanation: 'Cross-origin requests with custom headers trigger CORS preflights; the server must allowlist them in Access-Control-Allow-Headers.'
+    explanation:
+      'Cross-origin requests with custom headers trigger CORS preflights; the server must allowlist them in Access-Control-Allow-Headers.'
   },
   {
     id: 195,
     category: 'SECURITY',
     difficulty: 'ADVANCED',
-    question: 'How do you sanitize user-supplied URLs before binding them to `<a :href="userUrl">` to prevent `javascript:` payload execution?',
+    question:
+      'How do you sanitize user-supplied URLs before binding them to `<a :href="userUrl">` to prevent `javascript:` payload execution?',
     options: [
       'Validate that the URL starts with `https://` or `http://` using regex or URL constructor before binding.',
       'Allow all URLs freely.',
@@ -1419,7 +1595,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'HTML links are always safe.'
     ],
     correctIndex: 0,
-    explanation: 'Validating URL protocols prevents malicious `javascript:alert(1)` payloads from executing on click.'
+    explanation:
+      'Validating URL protocols prevents malicious `javascript:alert(1)` payloads from executing on click.'
   },
 
   // SECTION 10: DEBUGGING
@@ -1427,7 +1604,8 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
     id: 196,
     category: 'DEBUGGING',
     difficulty: 'INTERMEDIATE',
-    question: 'A developer updates a ref `count = 5` inside `<script setup>`, but the template does not update. What is the bug?',
+    question:
+      'A developer updates a ref `count = 5` inside `<script setup>`, but the template does not update. What is the bug?',
     options: [
       'The developer assigned directly to `count` instead of mutating its value `count.value = 5`.',
       'Vue requires restarting Vite.',
@@ -1435,13 +1613,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Browser cache is full.'
     ],
     correctIndex: 0,
-    explanation: 'Inside script tags, refs are RefImpl objects whose reactive state must be updated via `.value`.'
+    explanation:
+      'Inside script tags, refs are RefImpl objects whose reactive state must be updated via `.value`.'
   },
   {
     id: 197,
     category: 'DEBUGGING',
     difficulty: 'ADVANCED',
-    question: 'You configured a route with `component: () => import("./UsersView.vue")`, but bundle inspection shows `UsersView` is bundled into `index.js`. What is the cause?',
+    question:
+      'You configured a route with `component: () => import("./UsersView.vue")`, but bundle inspection shows `UsersView` is bundled into `index.js`. What is the cause?',
     options: [
       'Another eager component (like App.vue or router/index.ts) directly imported `import UsersView from "./UsersView.vue"` statically.',
       'Vue does not support lazy loading.',
@@ -1449,13 +1629,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'TypeScript caused the leak.'
     ],
     correctIndex: 0,
-    explanation: 'A static eager import anywhere in the build tree overrides dynamic imports, bundling the component into the main chunk.'
+    explanation:
+      'A static eager import anywhere in the build tree overrides dynamic imports, bundling the component into the main chunk.'
   },
   {
     id: 198,
     category: 'DEBUGGING',
     difficulty: 'ADVANCED',
-    question: 'A watcher triggers an infinite loop error: "Maximum recursive updates exceeded". What is the architectural cause?',
+    question:
+      'A watcher triggers an infinite loop error: "Maximum recursive updates exceeded". What is the architectural cause?',
     codeSnippet: `// Buggy pattern:\nwatch(user, () => {\n  user.lastUpdated = Date.now(); // Mutating watched dependency inside its own watcher!\n}, { deep: true });`,
     options: [
       'The watcher callback mutates the exact same reactive dependency it is watching with deep: true, triggering itself recursively.',
@@ -1464,13 +1646,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'The CPU ran out of memory.'
     ],
     correctIndex: 0,
-    explanation: 'Mutating a deep watched object inside its own callback triggers an infinite recursive watcher cycle.'
+    explanation:
+      'Mutating a deep watched object inside its own callback triggers an infinite recursive watcher cycle.'
   },
   {
     id: 199,
     category: 'DEBUGGING',
     difficulty: 'INTERMEDIATE',
-    question: 'A component receives a prop `user`, but when the parent updates `user.name`, the child does NOT update. The child starts with `const { name } = props.user`. What is the bug?',
+    question:
+      'A component receives a prop `user`, but when the parent updates `user.name`, the child does NOT update. The child starts with `const { name } = props.user`. What is the bug?',
     options: [
       'Destructuring plain properties from a prop object breaks the reactive proxy connection in Vue < 3.5 without `toRefs()`.',
       'Props cannot contain objects.',
@@ -1478,13 +1662,15 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'The parent component is broken.'
     ],
     correctIndex: 0,
-    explanation: 'Directly destructuring nested properties copies values as plain JavaScript primitives, severing the reactive chain.'
+    explanation:
+      'Directly destructuring nested properties copies values as plain JavaScript primitives, severing the reactive chain.'
   },
   {
     id: 200,
     category: 'DEBUGGING',
     difficulty: 'EXPERT',
-    question: 'You deployed a Vue 3 SPA with Vue Router (HTML5 history mode) to NGINX. Users report that refreshing `/users` yields an NGINX "404 Not Found". How do you fix this?',
+    question:
+      'You deployed a Vue 3 SPA with Vue Router (HTML5 history mode) to NGINX. Users report that refreshing `/users` yields an NGINX "404 Not Found". How do you fix this?',
     options: [
       'Add `try_files $uri $uri/ /index.html;` to the NGINX configuration so unmatched routes fallback to `index.html` for client-side routing.',
       'Switch back to Hash history mode (#/users).',
@@ -1492,6 +1678,7 @@ export const VUE_100_QUIZ_BANK: VueQuizQuestion[] = [
       'Remove routing from the application.'
     ],
     correctIndex: 0,
-    explanation: 'HTML5 history mode requires server fallback routing (try_files) to serve index.html for all deep client-side URLs.'
+    explanation:
+      'HTML5 history mode requires server fallback routing (try_files) to serve index.html for all deep client-side URLs.'
   }
 ];

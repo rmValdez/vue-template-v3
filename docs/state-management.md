@@ -13,6 +13,7 @@ All asynchronous data fetched from remote APIs or backend services belongs to Ta
 - Background polling & optimistic mutation rollbacks.
 
 ### Query Pattern:
+
 ```ts
 export function usePostsQuery() {
   return useSafeQuery({

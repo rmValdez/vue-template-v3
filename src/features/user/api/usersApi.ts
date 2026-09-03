@@ -23,14 +23,24 @@ interface UsersResponseEnvelope {
 export const usersApi = {
   getUsers: async (): Promise<UserList> => {
     const res = await http.get<UsersResponseEnvelope>(ENDPOINTS.users.list);
-    const rawList = res?.data?.items ?? res?.data?.users ?? res?.items ?? res?.users ?? res?.data ?? res ?? [];
+    const rawList =
+      res?.data?.items ??
+      res?.data?.users ??
+      res?.items ??
+      res?.users ??
+      res?.data ??
+      res ??
+      [];
     return UserListSchema.parse(rawList);
   },
 
   updateUserRole: async (payload: UpdateRolePayload): Promise<UserItem> => {
-    const data = await http.patch<UserItem>(ENDPOINTS.users.updateRole(payload.userId), {
-      role: payload.role
-    });
+    const data = await http.patch<UserItem>(
+      ENDPOINTS.users.updateRole(payload.userId),
+      {
+        role: payload.role
+      }
+    );
     return UserItemSchema.parse(data);
   }
 };

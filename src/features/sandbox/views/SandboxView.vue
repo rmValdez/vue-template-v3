@@ -35,7 +35,7 @@ const activeTab = ref<number>(6);
 
 watch(
   () => route.query.tab,
-  (newTab) => {
+  newTab => {
     if (typeof newTab === 'string' && TAB_MAP[newTab]) {
       activeTab.value = TAB_MAP[newTab];
     } else {

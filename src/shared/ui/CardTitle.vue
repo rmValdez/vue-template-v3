@@ -4,7 +4,10 @@ import { cn } from '../utils/cn';
 
 const props = defineProps<{ className?: string }>();
 const classes = computed(() =>
-  cn('text-xl font-bold leading-none tracking-tight text-foreground', props.className)
+  cn(
+    'text-xl font-bold leading-none tracking-tight text-foreground',
+    props.className
+  )
 );
 </script>
 

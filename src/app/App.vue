@@ -28,7 +28,8 @@ function handleLogout() {
       position="top-right"
       :toast-options="{
         classNames: {
-          toast: 'bg-card text-card-foreground border-border shadow-xl rounded-xl',
+          toast:
+            'bg-card text-card-foreground border-border shadow-xl rounded-xl',
           description: 'text-muted-foreground text-xs',
           actionButton: 'bg-primary text-primary-foreground',
           cancelButton: 'bg-muted text-muted-foreground'
@@ -42,11 +43,7 @@ function handleLogout() {
     </div>
 
     <!-- Protected Application Views with AppLayout Shell -->
-    <AppLayout
-      v-else
-      :user="authStore.user"
-      @logout="handleLogout"
-    >
+    <AppLayout v-else :user="authStore.user" @logout="handleLogout">
       <RouterView />
     </AppLayout>
   </div>

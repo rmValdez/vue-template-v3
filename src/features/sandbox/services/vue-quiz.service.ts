@@ -1,6 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query';
 import { type Ref, unref } from 'vue';
-import { VUE_100_QUIZ_BANK, type VueQuizQuestion } from '../data/vue-quiz-questions.data';
+import {
+  VUE_100_QUIZ_BANK,
+  type VueQuizQuestion
+} from '../data/vue-quiz-questions.data';
 
 export interface QuizApiResponse {
   status: string;
@@ -23,6 +26,10 @@ export interface QuizProgressResponse {
   };
 }
 
+// No backend in this ecosystem actually serves this route — every call below
+// always fails and falls back to the bundled VUE_100_QUIZ_BANK dataset. This
+// is intentional: the sandbox quiz works standalone with zero backend setup.
+// Point this at a real endpoint only if you build one.
 const API_BASE_URL = 'http://localhost:3002/api/v1/quiz';
 const TENANT_ID = 'vue-v3';
 
@@ -40,7 +47,8 @@ export function useVueQuizQuestions(
 
       const params = new URLSearchParams();
       if (category && category !== 'ALL') params.append('category', category);
-      if (difficulty && difficulty !== 'ALL') params.append('difficulty', difficulty);
+      if (difficulty && difficulty !== 'ALL')
+        params.append('difficulty', difficulty);
       if (search) params.append('search', search);
 
       try {

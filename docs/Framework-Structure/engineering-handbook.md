@@ -29,14 +29,17 @@ graph TD
 ```
 
 ### `src/app/` & `src/router/` (The Composition Layer)
+
 - Maps URLs to feature views and establishes global providers (QueryClient, Pinia, Toaster).
 - **Rule**: Never implements business logic directly. Composes views from `src/features/`.
 
 ### `src/features/` (The Business Domains)
+
 - Self-contained domain modules (`auth/`, `dashboard/`, `users/`, `posts/`).
 - **Rule**: **Strict Feature Isolation**. `features/A` must NEVER import from `features/B`. Communication happens via `app/` composition or `shared/` contracts. Enforced by `tools/validate-architecture.mjs`.
 
 ### `src/shared/` (The Global Infrastructure)
+
 - Generic UI design system components (`Button`, `Card`, `Input`, `Badge`, `Modal`, `Table`).
 - Networking client (`http.ts`), error classification (`ApiError`), retry policies, token storage, and RBAC evaluator.
 - **Rule**: Must have zero knowledge of specific business domains.
@@ -71,15 +74,14 @@ graph TD
 
 ### 📌 Rule of Thumb:
 
-| Responsibility | Technology | Usage Example |
-| :--- | :--- | :--- |
-| **API Data & Server State** | **TanStack Vue Query** | `useSafeQuery`, `useSafeMutation`, query cache & invalidation |
-| **User & Session State** | **Pinia** | `useAuthStore` (user identity, RBAC roles, `sessionStorage` tokens) |
-| **Component UI State** | **`ref()` / `reactive()`** | Active tabs, modal open/close, accordion toggles, local inputs |
-| **Browser & DOM Utilities**| **VueUse** | `useLocalStorage`, `useWindowSize`, `useIntersectionObserver` |
-| **Contract Validation** | **Zod** | `UserSchema.safeParse()`, form validation DTOs |
-| **HTTP Transport** | **`HttpClient` (`fetch`)** | Multi-tenant header (`x-tenant-id`), JWT Bearer injection |
+| Responsibility              | Technology                 | Usage Example                                                       |
+| :-------------------------- | :------------------------- | :------------------------------------------------------------------ |
+| **API Data & Server State** | **TanStack Vue Query**     | `useSafeQuery`, `useSafeMutation`, query cache & invalidation       |
+| **User & Session State**    | **Pinia**                  | `useAuthStore` (user identity, RBAC roles, `sessionStorage` tokens) |
+| **Component UI State**      | **`ref()` / `reactive()`** | Active tabs, modal open/close, accordion toggles, local inputs      |
+| **Browser & DOM Utilities** | **VueUse**                 | `useLocalStorage`, `useWindowSize`, `useIntersectionObserver`       |
+| **Contract Validation**     | **Zod**                    | `UserSchema.safeParse()`, form validation DTOs                      |
+| **HTTP Transport**          | **`HttpClient` (`fetch`)** | Multi-tenant header (`x-tenant-id`), JWT Bearer injection           |
 
 > [!NOTE]
 > **Strict Architectural Rule**: No Vuex, no RxJS, and no second state-management/query library. Keep dependencies lean, fast, and maintainable.
-

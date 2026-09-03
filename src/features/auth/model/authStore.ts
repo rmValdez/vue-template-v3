@@ -11,7 +11,9 @@ export const useAuthStore = defineStore('auth', () => {
   const isLoading = ref<boolean>(false);
   const isInitialized = ref<boolean>(false);
 
-  const isAuthenticated = computed(() => !!user.value && tokenStorage.hasToken());
+  const isAuthenticated = computed(
+    () => !!user.value && tokenStorage.hasToken()
+  );
   const role = computed<Role>(() => user.value?.role || 'guest');
 
   async function login(credentials: LoginCredentials): Promise<void> {

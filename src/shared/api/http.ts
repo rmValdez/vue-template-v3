@@ -46,7 +46,8 @@ const mockUsers = [
     email: 'sarah@example.com',
     role: 'admin',
     status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
+    avatar:
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
     createdAt: '2026-01-15T08:30:00Z'
   },
   {
@@ -55,7 +56,8 @@ const mockUsers = [
     email: 'alex@example.com',
     role: 'manager',
     status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
+    avatar:
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
     createdAt: '2026-02-10T11:20:00Z'
   },
   {
@@ -64,7 +66,8 @@ const mockUsers = [
     email: 'morgan@example.com',
     role: 'member',
     status: 'inactive',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+    avatar:
+      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
     createdAt: '2026-03-01T14:45:00Z'
   }
 ];
@@ -87,7 +90,8 @@ async function handleMockRequest<T>(
         name: email.split('@')[0],
         email,
         role,
-        avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150'
+        avatar:
+          'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150'
       },
       accessToken: 'mock_jwt_access_token_vue_template',
       refreshToken: 'mock_jwt_refresh_token_vue_template'
@@ -100,7 +104,8 @@ async function handleMockRequest<T>(
       name: 'Admin User',
       email: 'admin@example.com',
       role: 'admin',
-      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150'
+      avatar:
+        'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150'
     } as T;
   }
 
@@ -177,7 +182,8 @@ async function handleMockRequest<T>(
       {
         id: 'act-3',
         title: 'Automated Security Scan Passed',
-        description: 'Zero critical vulnerabilities reported across all features.',
+        description:
+          'Zero critical vulnerabilities reported across all features.',
         timestamp: '2 hours ago',
         type: 'warning'
       }
@@ -222,11 +228,7 @@ export class HttpClient {
     } = options;
 
     if (env.VITE_ENABLE_MOCK_API) {
-      return handleMockRequest<T>(
-        endpoint,
-        options.method || 'GET',
-        body
-      );
+      return handleMockRequest<T>(endpoint, options.method || 'GET', body);
     }
 
     const url = this.buildUrl(endpoint, params);
@@ -305,15 +307,27 @@ export class HttpClient {
     return this.request<T>(endpoint, { ...options, method: 'GET' });
   }
 
-  post<T>(endpoint: string, body?: unknown, options?: RequestOptions): Promise<T> {
+  post<T>(
+    endpoint: string,
+    body?: unknown,
+    options?: RequestOptions
+  ): Promise<T> {
     return this.request<T>(endpoint, { ...options, method: 'POST', body });
   }
 
-  put<T>(endpoint: string, body?: unknown, options?: RequestOptions): Promise<T> {
+  put<T>(
+    endpoint: string,
+    body?: unknown,
+    options?: RequestOptions
+  ): Promise<T> {
     return this.request<T>(endpoint, { ...options, method: 'PUT', body });
   }
 
-  patch<T>(endpoint: string, body?: unknown, options?: RequestOptions): Promise<T> {
+  patch<T>(
+    endpoint: string,
+    body?: unknown,
+    options?: RequestOptions
+  ): Promise<T> {
     return this.request<T>(endpoint, { ...options, method: 'PATCH', body });
   }
 

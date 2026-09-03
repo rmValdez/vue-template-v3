@@ -33,7 +33,8 @@ export class ApiError extends Error {
     }
 
     return new ApiError({
-      message: typeof error === 'string' ? error : 'An unexpected error occurred.',
+      message:
+        typeof error === 'string' ? error : 'An unexpected error occurred.',
       code: 'UNKNOWN_ERROR'
     });
   }

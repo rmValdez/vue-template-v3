@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import LoginForm from '../components/LoginForm.vue';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, ThemeToggle } from '@/shared/ui';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+  ThemeToggle
+} from '@/shared/ui';
 import { Layers } from 'lucide-vue-next';
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col justify-center items-center p-4 bg-background relative overflow-hidden">
+  <div
+    class="min-h-screen flex flex-col justify-center items-center p-4 bg-background relative overflow-hidden"
+  >
     <!-- Ambient glow background -->
     <div
       class="absolute -top-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"
@@ -45,7 +55,9 @@ import { Layers } from 'lucide-vue-next';
         <CardContent>
           <LoginForm />
         </CardContent>
-        <CardFooter className="flex justify-center border-t border-border/50 pt-4 text-xs text-muted-foreground">
+        <CardFooter
+          className="flex justify-center border-t border-border/50 pt-4 text-xs text-muted-foreground"
+        >
           Don't have an account?
           <RouterLink
             to="/register"
@@ -57,8 +69,20 @@ import { Layers } from 'lucide-vue-next';
       </Card>
 
       <div class="text-center text-[11px] text-muted-foreground/80 space-y-1">
-        <p>Demo accounts: <span class="font-mono font-bold text-foreground">admin@example.com</span> (Admin) or <span class="font-mono font-bold text-foreground">user@example.com</span> (Member)</p>
-        <p>Password: <span class="font-mono">any password &gt; 6 chars</span></p>
+        <p>
+          Demo accounts:
+          <span class="font-mono font-bold text-foreground"
+            >admin@example.com</span
+          >
+          (Admin) or
+          <span class="font-mono font-bold text-foreground"
+            >user@example.com</span
+          >
+          (Member)
+        </p>
+        <p>
+          Password: <span class="font-mono">any password &gt; 6 chars</span>
+        </p>
       </div>
     </div>
   </div>

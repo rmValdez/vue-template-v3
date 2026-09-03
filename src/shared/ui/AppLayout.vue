@@ -70,13 +70,49 @@ const navigationItems: NavItem[] = [
     icon: Sparkles,
     badge: '7 Labs',
     children: [
-      { name: 'Model & DB', path: '/sandbox?tab=model', tab: 'model', icon: Database },
-      { name: 'Reactivity Lab', path: '/sandbox?tab=reactivity', tab: 'reactivity', icon: Zap },
-      { name: 'Control Flow', path: '/sandbox?tab=control-flow', tab: 'control-flow', icon: GitBranch },
-      { name: 'Forms & Zod', path: '/sandbox?tab=forms', tab: 'forms', icon: CheckSquare },
-      { name: 'Advanced Tech', path: '/sandbox?tab=advanced', tab: 'advanced', icon: Layers },
-      { name: 'Scenario Quiz', path: '/sandbox?tab=quiz', tab: 'quiz', icon: Trophy, badge: '100 Qs' },
-      { name: 'Architecture Guide', path: '/sandbox?tab=architecture', tab: 'architecture', icon: BookOpen }
+      {
+        name: 'Model & DB',
+        path: '/sandbox?tab=model',
+        tab: 'model',
+        icon: Database
+      },
+      {
+        name: 'Reactivity Lab',
+        path: '/sandbox?tab=reactivity',
+        tab: 'reactivity',
+        icon: Zap
+      },
+      {
+        name: 'Control Flow',
+        path: '/sandbox?tab=control-flow',
+        tab: 'control-flow',
+        icon: GitBranch
+      },
+      {
+        name: 'Forms & Zod',
+        path: '/sandbox?tab=forms',
+        tab: 'forms',
+        icon: CheckSquare
+      },
+      {
+        name: 'Advanced Tech',
+        path: '/sandbox?tab=advanced',
+        tab: 'advanced',
+        icon: Layers
+      },
+      {
+        name: 'Scenario Quiz',
+        path: '/sandbox?tab=quiz',
+        tab: 'quiz',
+        icon: Trophy,
+        badge: '100 Qs'
+      },
+      {
+        name: 'Architecture Guide',
+        path: '/sandbox?tab=architecture',
+        tab: 'architecture',
+        icon: BookOpen
+      }
     ]
   },
   {
@@ -118,7 +154,9 @@ function handleLogout() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-background text-foreground flex flex-col md:flex-row">
+  <div
+    class="min-h-screen bg-background text-foreground flex flex-col md:flex-row"
+  >
     <!-- Desktop Sidebar -->
     <aside
       class="hidden md:flex flex-col w-64 border-r border-border bg-card/60 backdrop-blur-xl shrink-0 p-4 justify-between sticky top-0 h-screen overflow-y-auto"
@@ -132,10 +170,14 @@ function handleLogout() {
             <Layers class="h-5 w-5" />
           </div>
           <div>
-            <h1 class="font-extrabold text-sm tracking-tight leading-none text-foreground">
+            <h1
+              class="font-extrabold text-sm tracking-tight leading-none text-foreground"
+            >
               VUE MASTER
             </h1>
-            <span class="text-[10px] font-semibold text-primary tracking-widest uppercase">
+            <span
+              class="text-[10px] font-semibold text-primary tracking-widest uppercase"
+            >
               Template v3
             </span>
           </div>
@@ -143,7 +185,11 @@ function handleLogout() {
 
         <!-- Navigation Links (Modular Parent / Children) -->
         <nav class="space-y-1.5">
-          <div v-for="item in navigationItems" :key="item.name" class="space-y-1">
+          <div
+            v-for="item in navigationItems"
+            :key="item.name"
+            class="space-y-1"
+          >
             <!-- Parent WITHOUT Children -->
             <RouterLink
               v-if="!item.children"
@@ -180,7 +226,10 @@ function handleLogout() {
                 @click="toggleGroup(item.name)"
               >
                 <div class="flex items-center gap-3 truncate">
-                  <component :is="item.icon" class="h-4 w-4 shrink-0 text-primary" />
+                  <component
+                    :is="item.icon"
+                    class="h-4 w-4 shrink-0 text-primary"
+                  />
                   <span class="truncate">{{ item.name }}</span>
                 </div>
                 <div class="flex items-center gap-1.5 shrink-0">
@@ -242,7 +291,10 @@ function handleLogout() {
           <ThemeToggle />
         </div>
 
-        <div v-if="props.user" class="flex items-center justify-between p-2 rounded-lg bg-accent/40">
+        <div
+          v-if="props.user"
+          class="flex items-center justify-between p-2 rounded-lg bg-accent/40"
+        >
           <div class="flex items-center gap-2.5 overflow-hidden">
             <img
               v-if="props.user.avatar"
@@ -260,7 +312,9 @@ function handleLogout() {
               <p class="text-xs font-semibold truncate text-foreground">
                 {{ props.user.name }}
               </p>
-              <p class="text-[10px] text-muted-foreground truncate uppercase font-mono">
+              <p
+                class="text-[10px] text-muted-foreground truncate uppercase font-mono"
+              >
                 {{ props.user.role }}
               </p>
             </div>
@@ -287,7 +341,9 @@ function handleLogout() {
         >
           <Layers class="h-4 w-4" />
         </div>
-        <span class="font-bold text-sm tracking-tight text-foreground">Vue Template</span>
+        <span class="font-bold text-sm tracking-tight text-foreground"
+          >Vue Template</span
+        >
       </div>
 
       <div class="flex items-center gap-2">
@@ -328,7 +384,11 @@ function handleLogout() {
           </div>
 
           <nav class="space-y-1.5">
-            <div v-for="item in navigationItems" :key="item.name" class="space-y-1">
+            <div
+              v-for="item in navigationItems"
+              :key="item.name"
+              class="space-y-1"
+            >
               <!-- Mobile Parent WITHOUT Children -->
               <RouterLink
                 v-if="!item.children"
@@ -366,7 +426,10 @@ function handleLogout() {
                   @click="toggleGroup(item.name)"
                 >
                   <div class="flex items-center gap-3 truncate">
-                    <component :is="item.icon" class="h-4 w-4 shrink-0 text-primary" />
+                    <component
+                      :is="item.icon"
+                      class="h-4 w-4 shrink-0 text-primary"
+                    />
                     <span class="truncate">{{ item.name }}</span>
                   </div>
                   <div class="flex items-center gap-1.5 shrink-0">
@@ -401,7 +464,10 @@ function handleLogout() {
                     @click="isMobileSidebarOpen = false"
                   >
                     <div class="flex items-center gap-2 truncate">
-                      <component :is="child.icon" class="h-3.5 w-3.5 shrink-0" />
+                      <component
+                        :is="child.icon"
+                        class="h-3.5 w-3.5 shrink-0"
+                      />
                       <span class="truncate">{{ child.name }}</span>
                     </div>
                     <span
