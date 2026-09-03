@@ -17,38 +17,34 @@ import {
 // unlike this client's generic `ApiResponse<T>` convention used elsewhere.
 export const authApi = {
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    const res = await http.post<any>(
+    const res = await http.post<Record<string, unknown>>(
       ENDPOINTS.auth.login,
       credentials,
-      {
-        requiresAuth: false
-      }
+      { requiresAuth: false }
     );
     const payload = res?.data ?? res;
     return AuthResponseSchema.parse(payload);
   },
 
   register: async (credentials: RegisterCredentials): Promise<AuthResponse> => {
-    const res = await http.post<any>(
+    const res = await http.post<Record<string, unknown>>(
       ENDPOINTS.auth.register,
       credentials,
-      {
-        requiresAuth: false
-      }
+      { requiresAuth: false }
     );
     const payload = res?.data ?? res;
     return AuthResponseSchema.parse(payload);
   },
 
   getCurrentUser: async (): Promise<User> => {
-    const res = await http.get<any>(ENDPOINTS.auth.me);
+    const res = await http.get<Record<string, unknown>>(ENDPOINTS.auth.me);
     const payload = res?.data ?? res;
     return UserSchema.parse(payload);
   },
 
   refreshToken: async (token?: string): Promise<RefreshResponse> => {
     const refreshToken = token || tokenStorage.getRefreshToken();
-    const res = await http.post<any>(
+    const res = await http.post<Record<string, unknown>>(
       ENDPOINTS.auth.refresh,
       { refreshToken },
       { requiresAuth: false }
