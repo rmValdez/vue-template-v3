@@ -96,7 +96,10 @@ const statusBadgeVariants = {
       </TableRow>
 
       <TableRow v-if="users.length === 0">
-        <TableCell colspan="5" class="text-center py-8 text-muted-foreground text-xs">
+        <TableCell
+          colspan="5"
+          class="text-center py-8 text-muted-foreground text-xs"
+        >
           No users matching criteria.
         </TableCell>
       </TableRow>

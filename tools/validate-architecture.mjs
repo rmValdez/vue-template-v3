@@ -67,8 +67,10 @@ function validateFile(filePath, relativePath) {
     let impFeature = null;
 
     if (imp.startsWith('@/app') || imp.startsWith('app/')) impLayer = 'app';
-    if (imp.startsWith('@/router') || imp.startsWith('router/')) impLayer = 'router';
-    if (imp.startsWith('@/shared') || imp.startsWith('shared/')) impLayer = 'shared';
+    if (imp.startsWith('@/router') || imp.startsWith('router/'))
+      impLayer = 'router';
+    if (imp.startsWith('@/shared') || imp.startsWith('shared/'))
+      impLayer = 'shared';
     if (imp.startsWith('@/features/') || imp.startsWith('features/')) {
       impLayer = 'features';
       const parts = imp.replace(/^(@\/)?features\//, '').split('/');
@@ -81,7 +83,11 @@ function validateFile(filePath, relativePath) {
 
     // Shared Layer Constraints: Shared cannot depend on features, router, or app
     if (layer === 'shared') {
-      if (impLayer === 'features' || impLayer === 'app' || impLayer === 'router') {
+      if (
+        impLayer === 'features' ||
+        impLayer === 'app' ||
+        impLayer === 'router'
+      ) {
         logViolation(
           normalizedRelPath,
           'Shared Kernel Constraint',

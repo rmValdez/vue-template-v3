@@ -3,7 +3,8 @@ import { computed } from 'vue';
 import { cn } from '../utils/cn';
 
 export interface BadgeProps {
-  variant?: 'default' | 'secondary' | 'outline' | 'destructive' | 'success' | 'warning';
+  variant?:
+    'default' | 'secondary' | 'outline' | 'destructive' | 'success' | 'warning';
   className?: string;
 }
 
@@ -17,8 +18,10 @@ const variantClasses = {
   secondary: 'bg-secondary text-secondary-foreground border-transparent',
   outline: 'text-foreground border-border',
   destructive: 'bg-destructive/10 text-destructive border-destructive/20',
-  success: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
-  warning: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
+  success:
+    'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+  warning:
+    'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
 };
 
 const classes = computed(() =>

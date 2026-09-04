@@ -29,16 +29,16 @@ graph TD
 
 ## 🏛️ Template Comparison Matrix
 
-| Feature / Standard | Angular 19 (`angular-template-v4`) | Node.js / Postgres (`node-postg-template`) | Next.js (`next-template-v1`) | Vue.js (`vue-template-v3`) | Nuxt.js (`nuxt-template-v2`) |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Framework Version** | Angular 19.1+ (Standalone) | Express 4.18+ / Node 20+ | Next.js 15 (App Router) | Vue 3.5 (Vite 6) | Nuxt 3.15+ (Nitro SSR) |
-| **Port (Local Dev)** | `http://localhost:4200` | `http://localhost:3002` | `http://localhost:3000` | `http://localhost:5173` | `http://localhost:3000` |
-| **Architecture** | FAOS (3-Tier) | Controller-Service-Repo + Sockets | FAOS (3-Tier) | FAOS (3-Tier) | FAOS + Nitro Server |
-| **Server State** | TanStack Angular Query v5 | Prisma ORM 6.x + Redis Cache | TanStack React Query v5 | TanStack Vue Query v5 | Nuxt `useFetch` / Nitro |
-| **Client State / Storage** | Angular Signals (`sessionStorage`) | In-Memory / Redis Sessions | Zustand v5 (`sessionStorage`) | Pinia v3 | Pinia v3 |
-| **Realtime WebSockets** | Socket.IO Client / WebSocket | Socket.IO 4.8+ Gateway | Socket.IO Client / SSE | Socket.IO Client | Nitro WebSockets |
-| **Styling & Theme** | Tailwind CSS v3.4 + HSL | N/A (JSON API & WebSocket) | Tailwind CSS v3.4 + HSL | Tailwind CSS v3.4 + HSL | Tailwind CSS v3.4 + HSL |
-| **Contract Validation**| Zod v3.24 | Joi / Zod | Zod v3/v4 | Zod v3/v4 | Zod v3/v4 |
+| Feature / Standard         | Angular 19 (`angular-template-v4`) | Node.js / Postgres (`node-postg-template`) | Next.js (`next-template-v1`)  | Vue.js (`vue-template-v3`) | Nuxt.js (`nuxt-template-v2`) |
+| :------------------------- | :--------------------------------- | :----------------------------------------- | :---------------------------- | :------------------------- | :--------------------------- |
+| **Framework Version**      | Angular 19.1+ (Standalone)         | Express 4.18+ / Node 20+                   | Next.js 15 (App Router)       | Vue 3.5 (Vite 6)           | Nuxt 3.15+ (Nitro SSR)       |
+| **Port (Local Dev)**       | `http://localhost:4200`            | `http://localhost:3002`                    | `http://localhost:3000`       | `http://localhost:5173`    | `http://localhost:3000`      |
+| **Architecture**           | FAOS (3-Tier)                      | Controller-Service-Repo + Sockets          | FAOS (3-Tier)                 | FAOS (3-Tier)              | FAOS + Nitro Server          |
+| **Server State**           | TanStack Angular Query v5          | Prisma ORM 6.x + Redis Cache               | TanStack React Query v5       | TanStack Vue Query v5      | Nuxt `useFetch` / Nitro      |
+| **Client State / Storage** | Angular Signals (`sessionStorage`) | In-Memory / Redis Sessions                 | Zustand v5 (`sessionStorage`) | Pinia v3                   | Pinia v3                     |
+| **Realtime WebSockets**    | Socket.IO Client / WebSocket       | Socket.IO 4.8+ Gateway                     | Socket.IO Client / SSE        | Socket.IO Client           | Nitro WebSockets             |
+| **Styling & Theme**        | Tailwind CSS v3.4 + HSL            | N/A (JSON API & WebSocket)                 | Tailwind CSS v3.4 + HSL       | Tailwind CSS v3.4 + HSL    | Tailwind CSS v3.4 + HSL      |
+| **Contract Validation**    | Zod v3.24                          | Joi / Zod                                  | Zod v3/v4                     | Zod v3/v4                  | Zod v3/v4                    |
 
 ---
 
@@ -86,26 +86,36 @@ Every template connects to the centralized PostgreSQL backend with tenant isolat
 The backend incorporates production patterns from `mapanytime-api`:
 
 ### 1. Unified Multi-Origin CORS (`src/middleware/cors.middleware.ts`)
+
 - **Shared Allowlist**: Express HTTP routes and Socket.IO gateway share the same allowlist parser.
 - **Dynamic Config**: Reads comma-separated origins from `CORS_ORIGIN` (e.g. `http://localhost:4200,http://localhost:3000,http://localhost:5173`).
 - **Browser Spec Compliance**: Avoids wildcard `*` with `credentials: true` to prevent browser CORS rejections.
 
 ### 2. Realtime Socket.IO Gateway (`src/infrastructure/socket/index.ts`)
+
 - **User Isolation**: Automatic user notification rooms (`notifications:user:${userId}`).
 - **Dynamic Rooms**: Generic room join/leave (`join_room`, `leave_room`).
 - **Helper Methods**: `emitNotificationToUser()`, `emitToRoom()`, `emitBroadcast()`.
 
 ### 3. Standardized Pagination Helper (`src/helpers/pagination.helper.ts`)
+
 ```typescript
-const { page, limit, skip, sortBy, sortOrder, search } = parsePagination(req.query);
+const { page, limit, skip, sortBy, sortOrder, search } = parsePagination(
+  req.query
+);
 const [items, total] = await Promise.all([
   prisma.user.findMany({ where, skip, take: limit }),
-  prisma.user.count({ where }),
+  prisma.user.count({ where })
 ]);
-return responseSuccess(res, 200, buildPage(items, total, { page, limit, sortBy, sortOrder, search }));
+return responseSuccess(
+  res,
+  200,
+  buildPage(items, total, { page, limit, sortBy, sortOrder, search })
+);
 ```
 
 **Standard Envelope:**
+
 ```json
 {
   "status": "success",
@@ -122,16 +132,20 @@ return responseSuccess(res, 200, buildPage(items, total, { page, limit, sortBy, 
 ```
 
 ### 4. Typed Response Helpers (`src/helpers/response.helper.ts`)
+
 - `responseSuccess(res, statusCode, data, message?)`
 - `responseError(res, statusCode, message, extra?)`
 
 ### 5. Distributed Request Context (`src/utils/async-context.ts`)
+
 - Leverages Node.js `AsyncLocalStorage` to trace `requestId` and `correlationId` across handlers, database queries, and loggers.
 
 ### 6. Geospatial Utilities (`src/utils/geo.util.ts`)
+
 - Pure, deterministic `haversineKm(lat1, lng1, lat2, lng2)` calculation for location proximity and spatial bounding.
 
 ### 7. Connection-Pooled Email Service (`src/utils/mailer.util.ts`)
+
 - **Nodemailer Transport Pool**: Reuses single connection pool across requests.
 - **Verification at Startup**: `verifyMailer()` checks SMTP configuration at boot without throwing fatal crashes.
 - **HTML & Plain Text**: Full support for rich email notifications, password resets, and verification codes.
@@ -142,12 +156,14 @@ return responseSuccess(res, 200, buildPage(items, total, { page, limit, sortBy, 
 ## 🅰️ Frontend Architecture Standards (`angular-template-v4`)
 
 ### 1. Modern Angular 19 Features
+
 - **Standalone Architecture**: 100% standalone components, directives, and pipes. Zero `NgModule`.
 - **Native Reactivity (Signals)**: Component state managed with `signal()`, `computed()`, and `effect()`.
 - **Built-in Control Flow**: `@if`, `@else`, `@for (item of items; track item.id)`, `@switch`.
 - **Token Security**: Tokens are isolated to `sessionStorage` via `TokenService`.
 
 ### 2. Functional HTTP Interceptor (`src/app/core/interceptors/auth.interceptor.ts`)
+
 - Automatically attaches `Authorization: Bearer <accessToken>` to outgoing requests.
 - Prioritizes `/auth/refresh-token` requests to attach the refresh token without early return conflicts.
 
@@ -180,6 +196,7 @@ src/
 ## 🛡️ Boundary Enforcement Rule
 
 A strict static boundary rule is enforced across all templates by `tools/validate-architecture.mjs`:
+
 - **Rule 1**: `shared/` can never import from `features/` or `app/`.
 - **Rule 2**: `features/A` can never import from `features/B`. Features can only be composed in `app/` or share utilities via `shared/`.
 - **Rule 3**: `app/` contains zero business logic; it only maps routes and provides root layout shells.

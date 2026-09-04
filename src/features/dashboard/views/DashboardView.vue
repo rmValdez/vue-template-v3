@@ -12,20 +12,25 @@ const { data: activity, isLoading: isActivityLoading } = useDashboardActivity();
 <template>
   <div class="space-y-6">
     <!-- Header banner -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div
+      class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+    >
       <div>
         <h2 class="text-2xl font-black tracking-tight text-foreground">
           Workspace Overview
         </h2>
         <p class="text-xs text-muted-foreground mt-0.5">
-          Enterprise operational metrics, traffic analytics, and security telemetry
+          Enterprise operational metrics, traffic analytics, and security
+          telemetry
         </p>
       </div>
       <div class="flex items-center gap-2">
         <span
           class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
         >
-          <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span
+            class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"
+          ></span>
           Cluster Healthy
         </span>
       </div>

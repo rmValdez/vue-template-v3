@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import RegisterForm from '../components/RegisterForm.vue';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, ThemeToggle } from '@/shared/ui';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+  ThemeToggle
+} from '@/shared/ui';
 import { Layers } from 'lucide-vue-next';
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col justify-center items-center p-4 bg-background relative overflow-hidden">
+  <div
+    class="min-h-screen flex flex-col justify-center items-center p-4 bg-background relative overflow-hidden"
+  >
     <!-- Ambient glow background -->
     <div
       class="absolute -top-40 -right-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"
@@ -45,7 +55,9 @@ import { Layers } from 'lucide-vue-next';
         <CardContent>
           <RegisterForm />
         </CardContent>
-        <CardFooter className="flex justify-center border-t border-border/50 pt-4 text-xs text-muted-foreground">
+        <CardFooter
+          className="flex justify-center border-t border-border/50 pt-4 text-xs text-muted-foreground"
+        >
           Already have an account?
           <RouterLink
             to="/login"

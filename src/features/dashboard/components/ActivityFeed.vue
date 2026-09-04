@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge } from '@/shared/ui';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  Badge
+} from '@/shared/ui';
 import type { ActivityList } from '../model/types';
 import { Activity, ShieldCheck, UserCheck, AlertCircle } from 'lucide-vue-next';
 
@@ -34,7 +41,11 @@ const badgeMap = {
     </CardHeader>
     <CardContent>
       <div v-if="loading" class="space-y-4">
-        <div v-for="i in 3" :key="i" class="h-14 rounded-lg bg-muted/40 animate-pulse"></div>
+        <div
+          v-for="i in 3"
+          :key="i"
+          class="h-14 rounded-lg bg-muted/40 animate-pulse"
+        ></div>
       </div>
 
       <div v-else-if="activities && activities.length > 0" class="space-y-4">
@@ -60,14 +71,19 @@ const badgeMap = {
               <h4 class="text-xs font-bold text-foreground truncate">
                 {{ item.title }}
               </h4>
-              <Badge :variant="badgeMap[item.type]" className="text-[9px] px-1.5 py-0">
+              <Badge
+                :variant="badgeMap[item.type]"
+                className="text-[9px] px-1.5 py-0"
+              >
                 {{ item.type }}
               </Badge>
             </div>
             <p class="text-[11px] text-muted-foreground mt-0.5 leading-snug">
               {{ item.description }}
             </p>
-            <span class="text-[10px] text-muted-foreground/60 font-mono mt-1 block">
+            <span
+              class="text-[10px] text-muted-foreground/60 font-mono mt-1 block"
+            >
               {{ item.timestamp }}
             </span>
           </div>

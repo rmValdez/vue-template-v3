@@ -28,17 +28,17 @@ graph TD
 
 ## 🏛️ Template Comparison Matrix
 
-| Feature / Standard | Next.js (`next-template-v1`) | Vue.js (`vue-template-v3`) | Nuxt.js (`nuxt-template-v2`) | Angular (`angular-template-v4`) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Framework Version** | Next.js 15 (App Router) | Vue 3.5 (Vite 6) | Nuxt 3.15+ (Nitro SSR) | Angular 19+ (Standalone) |
-| **Architecture** | FAOS (3-Tier) | FAOS (3-Tier) | FAOS + Nitro Server | FAOS (3-Tier) |
-| **Server State** | TanStack React Query v5 | TanStack Vue Query v5 | Nuxt `useFetch` / Nitro | TanStack Angular Query v5 |
-| **Client / UI State** | Zustand v5 | Pinia v3 | Pinia v3 | Angular Signals (`signal()`) |
-| **Styling & Theme** | Tailwind CSS v3.4 + HSL | Tailwind CSS v3.4 + HSL | Tailwind CSS v3.4 + HSL | Tailwind CSS v3.4 + HSL |
-| **API Contract Validation**| Zod v3/v4 | Zod v3/v4 | Zod v3/v4 | Zod v3/v4 |
-| **Package Manager** | `pnpm` 9.x | `pnpm` 9.x | `pnpm` 9.x | `pnpm` 9.x |
-| **Testing** | Vitest + Playwright | Vitest + Playwright | Vitest | Karma / Vitest |
-| **Component Workshop** | Storybook 8 | Storybook 8 | Tailwind Viewer | Standalone Storybook |
+| Feature / Standard          | Next.js (`next-template-v1`) | Vue.js (`vue-template-v3`) | Nuxt.js (`nuxt-template-v2`) | Angular (`angular-template-v4`) |
+| :-------------------------- | :--------------------------- | :------------------------- | :--------------------------- | :------------------------------ |
+| **Framework Version**       | Next.js 15 (App Router)      | Vue 3.5 (Vite 6)           | Nuxt 3.15+ (Nitro SSR)       | Angular 19+ (Standalone)        |
+| **Architecture**            | FAOS (3-Tier)                | FAOS (3-Tier)              | FAOS + Nitro Server          | FAOS (3-Tier)                   |
+| **Server State**            | TanStack React Query v5      | TanStack Vue Query v5      | Nuxt `useFetch` / Nitro      | TanStack Angular Query v5       |
+| **Client / UI State**       | Zustand v5                   | Pinia v3                   | Pinia v3                     | Angular Signals (`signal()`)    |
+| **Styling & Theme**         | Tailwind CSS v3.4 + HSL      | Tailwind CSS v3.4 + HSL    | Tailwind CSS v3.4 + HSL      | Tailwind CSS v3.4 + HSL         |
+| **API Contract Validation** | Zod v3/v4                    | Zod v3/v4                  | Zod v3/v4                    | Zod v3/v4                       |
+| **Package Manager**         | `pnpm` 9.x                   | `pnpm` 9.x                 | `pnpm` 9.x                   | `pnpm` 9.x                      |
+| **Testing**                 | Vitest + Playwright          | Vitest + Playwright        | Vitest                       | Karma / Vitest                  |
+| **Component Workshop**      | Storybook 8                  | Storybook 8                | Tailwind Viewer              | Standalone Storybook            |
 
 ---
 
@@ -88,6 +88,7 @@ src/
 ## 🛡️ Boundary Enforcement Rule
 
 A strict static boundary rule is enforced across all templates by `tools/validate-architecture.mjs`:
+
 - **Rule 1**: `shared/` can never import from `features/` or `app/`.
 - **Rule 2**: `features/A` can never import from `features/B`. Features can only be composed in `app/` or share utilities via `shared/`.
 - **Rule 3**: `app/` contains zero business logic; it only maps routes and provides root layout shells.

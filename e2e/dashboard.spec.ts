@@ -25,6 +25,8 @@ test.describe('Dashboard & Feature Navigation', () => {
     // Navigate to Posts
     await page.click('nav a:has-text("Posts")');
     await expect(page).toHaveURL(/.*\/posts/);
-    await expect(page.locator('h2')).toContainText('Articles & Architecture Insights');
+    await expect(page.locator('h2')).toContainText(
+      'Articles & Architecture Insights'
+    );
   });
 });

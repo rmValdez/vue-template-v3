@@ -5,17 +5,20 @@ export interface ApiResponse<T> {
   data: T;
 }
 
-export const UserRoleSchema = z.preprocess((val) => {
-  if (typeof val === 'string') {
-    const raw = val.toLowerCase().trim();
-    if (raw === 'super_admin' || raw === 'admin') return 'admin';
-    if (raw === 'manager') return 'manager';
-    if (raw === 'developer') return 'admin';
-    if (raw === 'user' || raw === 'member') return 'member';
-    if (raw === 'guest' || raw === 'viewer') return 'guest';
-  }
-  return val;
-}, z.enum(['admin', 'manager', 'member', 'guest'] as const));
+export const UserRoleSchema = z.preprocess(
+  val => {
+    if (typeof val === 'string') {
+      const raw = val.toLowerCase().trim();
+      if (raw === 'super_admin' || raw === 'admin') return 'admin';
+      if (raw === 'manager') return 'manager';
+      if (raw === 'developer') return 'admin';
+      if (raw === 'user' || raw === 'member') return 'member';
+      if (raw === 'guest' || raw === 'viewer') return 'guest';
+    }
+    return val;
+  },
+  z.enum(['admin', 'manager', 'member', 'guest'] as const)
+);
 
 export const UserSchema = z.object({
   id: z.string(),
@@ -52,3 +55,12 @@ export const AuthResponseSchema = z.object({
 });
 
 export type AuthResponse = z.infer<typeof AuthResponseSchema>;
+
+// nuxt-template-v2's POST /api/auth/refresh returns only the tokens, no
+// `user` — unlike login/register, which return the full AuthResponse shape.
+export const RefreshResponseSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string().optional()
+});
+
+export type RefreshResponse = z.infer<typeof RefreshResponseSchema>;

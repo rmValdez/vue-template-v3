@@ -11,11 +11,17 @@ export interface RouteErrorOptions {
   fallbackMessage?: string;
 }
 
-export function routeError(error: unknown, options: RouteErrorOptions = {}): void {
+export function routeError(
+  error: unknown,
+  options: RouteErrorOptions = {}
+): void {
   const apiError = ApiError.fromUnknown(error);
   const action = options.action ?? 'toast';
 
-  telemetry.logError(apiError, { status: apiError.status, code: apiError.code });
+  telemetry.logError(apiError, {
+    status: apiError.status,
+    code: apiError.code
+  });
 
   // Handle Unauthenticated (401)
   if (apiError.status === 401) {
@@ -25,7 +31,10 @@ export function routeError(error: unknown, options: RouteErrorOptions = {}): voi
         description: 'Your session has expired. Please sign in again.'
       });
     }
-    if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/login')) {
+    if (
+      typeof window !== 'undefined' &&
+      !window.location.pathname.startsWith('/login')
+    ) {
       window.location.href = '/login';
     }
     return;
@@ -35,7 +44,9 @@ export function routeError(error: unknown, options: RouteErrorOptions = {}): voi
   if (apiError.status === 403) {
     if (action !== 'silent') {
       toast.error('Access Denied', {
-        description: apiError.message || 'You do not have permission to perform this action.'
+        description:
+          apiError.message ||
+          'You do not have permission to perform this action.'
       });
     }
     return;
@@ -45,7 +56,8 @@ export function routeError(error: unknown, options: RouteErrorOptions = {}): voi
   if (apiError.status === 422) {
     if (action !== 'silent') {
       toast.error('Validation Error', {
-        description: apiError.message || 'Please check your inputs and try again.'
+        description:
+          apiError.message || 'Please check your inputs and try again.'
       });
     }
     return;
@@ -55,7 +67,9 @@ export function routeError(error: unknown, options: RouteErrorOptions = {}): voi
   if (apiError.status >= 500) {
     if (action !== 'silent') {
       toast.error('Server Error', {
-        description: options.fallbackMessage || 'A server error occurred. Please try again later.'
+        description:
+          options.fallbackMessage ||
+          'A server error occurred. Please try again later.'
       });
     }
     return;
@@ -64,7 +78,8 @@ export function routeError(error: unknown, options: RouteErrorOptions = {}): voi
   // General Toast for other errors
   if (action === 'toast') {
     toast.error('Error', {
-      description: options.customMessage || apiError.message || 'An error occurred.'
+      description:
+        options.customMessage || apiError.message || 'An error occurred.'
     });
   }
 }

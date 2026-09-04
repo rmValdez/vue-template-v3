@@ -34,6 +34,9 @@ export default [
       'vue/multiline-html-element-content-newline': 'off',
       'vue/html-self-closing': 'off',
       'vue/attribute-hyphenation': 'off',
+      'vue/html-closing-bracket-newline': 'off',
+      'vue/html-indent': 'off',
+      'vue/first-attribute-linebreak': 'off',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }

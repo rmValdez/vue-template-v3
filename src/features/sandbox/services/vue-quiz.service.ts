@@ -1,6 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query';
 import { type Ref, unref } from 'vue';
-import { VUE_100_QUIZ_BANK, type VueQuizQuestion } from '../data/vue-quiz-questions.data';
+import { http } from '@/shared/api/http';
+import { ENDPOINTS } from '@/shared/api/endpoints';
+import {
+  VUE_100_QUIZ_BANK,
+  type VueQuizQuestion
+} from '../data/vue-quiz-questions.data';
 
 export interface QuizApiResponse {
   status: string;
@@ -23,9 +28,6 @@ export interface QuizProgressResponse {
   };
 }
 
-const API_BASE_URL = 'http://localhost:3002/api/v1/quiz';
-const TENANT_ID = 'vue-v3';
-
 export function useVueQuizQuestions(
   categoryRef?: Ref<string>,
   difficultyRef?: Ref<string>,
@@ -38,25 +40,17 @@ export function useVueQuizQuestions(
       const difficulty = difficultyRef ? unref(difficultyRef) : 'ALL';
       const search = searchRef ? unref(searchRef) : '';
 
-      const params = new URLSearchParams();
-      if (category && category !== 'ALL') params.append('category', category);
-      if (difficulty && difficulty !== 'ALL') params.append('difficulty', difficulty);
-      if (search) params.append('search', search);
+      const params: Record<string, string> = {};
+      if (category && category !== 'ALL') params.category = category;
+      if (difficulty && difficulty !== 'ALL') params.difficulty = difficulty;
+      if (search) params.search = search;
 
       try {
-        const response = await fetch(`${API_BASE_URL}?${params.toString()}`, {
-          headers: {
-            'x-tenant-id': TENANT_ID,
-            'Content-Type': 'application/json'
-          }
+        const res = await http.get<QuizApiResponse>(ENDPOINTS.quiz.list, {
+          params,
+          requiresAuth: false
         });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data: QuizApiResponse = await response.json();
-        return data.data;
+        return res.data;
       } catch (error) {
         console.warn('Fallback to local Vue quiz dataset:', error);
         return {
@@ -74,19 +68,11 @@ export function useVueQuizProgress() {
     queryKey: ['vue-quiz-progress'],
     queryFn: async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/progress`, {
-          headers: {
-            'x-tenant-id': TENANT_ID,
-            'Content-Type': 'application/json'
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data: QuizProgressResponse = await response.json();
-        return data.data;
+        const res = await http.get<QuizProgressResponse>(
+          ENDPOINTS.quiz.progress,
+          { requiresAuth: false }
+        );
+        return res.data;
       } catch (error) {
         console.warn('Could not fetch quiz progress from PostgreSQL:', error);
         return {
@@ -110,20 +96,9 @@ export function useSaveVueQuizProgress() {
       score: number;
       answeredCount: number;
     }) => {
-      const response = await fetch(`${API_BASE_URL}/progress`, {
-        method: 'POST',
-        headers: {
-          'x-tenant-id': TENANT_ID,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
+      return http.post<QuizProgressResponse>(ENDPOINTS.quiz.progress, payload, {
+        requiresAuth: false
       });
-
-      if (!response.ok) {
-        throw new Error(`Failed to save progress: ${response.statusText}`);
-      }
-
-      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['vue-quiz-progress'] });
@@ -136,19 +111,11 @@ export function useResetVueQuizProgress() {
 
   return useMutation({
     mutationFn: async () => {
-      const response = await fetch(`${API_BASE_URL}/progress/reset`, {
-        method: 'POST',
-        headers: {
-          'x-tenant-id': TENANT_ID,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to reset progress: ${response.statusText}`);
-      }
-
-      return response.json();
+      return http.post<QuizProgressResponse>(
+        ENDPOINTS.quiz.reset,
+        {},
+        { requiresAuth: false }
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['vue-quiz-progress'] });

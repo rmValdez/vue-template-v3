@@ -7,6 +7,7 @@ This document tracks all features, database seeders, living documentation labs, 
 ## 📊 High-Level Roadmap & Checklists
 
 ### 1. 🗄️ PostgreSQL Database & Backend API (`node-postg-template`)
+
 - [x] **Tenant Registration**: Multi-tenant `vue-v3` tenant record verified in `Tenant` table.
 - [x] **100-Question Vue 3.5 Seeder**: Created `prisma/seeders/vue-quiz.seeder.ts` spanning 10 engineering domains.
 - [x] **Backend Seeding**: Executed `npx tsx prisma/seed.ts` (100 Vue questions inserted into `QuizQuestion`).
@@ -16,6 +17,7 @@ This document tracks all features, database seeders, living documentation labs, 
 ---
 
 ### 2. 🏖️ Vue 3.5 Interactive Sandbox Labs (`/sandbox`)
+
 - [x] **Tab 1: 📦 Vue 3.5 Model & Database State**
   - [x] Connect TanStack Vue Query (`useVueQuizQuestions`, `useVueQuizProgress`) to fetch from PostgreSQL.
   - [x] Live PostgreSQL connection status banner & tenant header indicator.
@@ -65,6 +67,7 @@ This document tracks all features, database seeders, living documentation labs, 
 ---
 
 ### 3. 📱 Navigation & Responsive Layout (`AppLayout.vue`)
+
 - [x] Added `/sandbox` route to `src/router/index.ts` with lazy chunking.
 - [x] Added Sandbox link with Sparkles icon to desktop sidebar.
 - [x] Verified responsive mobile drawer support in `AppLayout.vue`.
@@ -72,6 +75,7 @@ This document tracks all features, database seeders, living documentation labs, 
 ---
 
 ### 4. 🛡️ Verification & Quality Assurance
+
 - [x] `vue-tsc --noEmit` passed with **0 errors**.
 - [x] `vite build` produced optimized production bundle with **0 errors**.
 - [x] `node tools/validate-architecture.mjs` passed with **0 violations**.

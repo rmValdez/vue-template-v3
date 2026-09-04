@@ -17,12 +17,12 @@ http.ts → ApiError (normalized + status code)
 
 ## 2. Error Categorization & Behavior
 
-| Status | Category | System Behavior |
-| :--- | :--- | :--- |
-| **401** | Unauthenticated | Clears token storage, displays session expiration toast, redirects to `/login`. |
-| **403** | Forbidden | Displays "Access Denied" toast. Navigation unchanged. |
-| **422** | Validation | Displays validation issue description. |
-| **500+** | Server Error | Displays graceful fallback error toast and logs report to telemetry. |
+| Status   | Category        | System Behavior                                                                 |
+| :------- | :-------------- | :------------------------------------------------------------------------------ |
+| **401**  | Unauthenticated | Clears token storage, displays session expiration toast, redirects to `/login`. |
+| **403**  | Forbidden       | Displays "Access Denied" toast. Navigation unchanged.                           |
+| **422**  | Validation      | Displays validation issue description.                                          |
+| **500+** | Server Error    | Displays graceful fallback error toast and logs report to telemetry.            |
 
 ---
 

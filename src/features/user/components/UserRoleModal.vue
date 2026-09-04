@@ -55,20 +55,30 @@ async function handleSave() {
   >
     <div class="space-y-4">
       <div class="space-y-2">
-        <label class="text-xs font-semibold text-foreground/80">Select Role</label>
+        <label class="text-xs font-semibold text-foreground/80"
+          >Select Role</label
+        >
         <select
           v-model="selectedRole"
           class="w-full h-10 px-3 rounded-lg border border-input bg-background text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <option value="admin">Admin (Full Access &amp; System Configuration)</option>
-          <option value="manager">Manager (User &amp; Content Management)</option>
+          <option value="admin">
+            Admin (Full Access &amp; System Configuration)
+          </option>
+          <option value="manager">
+            Manager (User &amp; Content Management)
+          </option>
           <option value="member">Member (Content Creation &amp; View)</option>
           <option value="guest">Guest (Read Only)</option>
         </select>
       </div>
 
-      <div class="flex items-center justify-end gap-2 pt-4 border-t border-border">
-        <Button variant="outline" size="sm" @click="emit('close')">Cancel</Button>
+      <div
+        class="flex items-center justify-end gap-2 pt-4 border-t border-border"
+      >
+        <Button variant="outline" size="sm" @click="emit('close')"
+          >Cancel</Button
+        >
         <Button
           variant="primary"
           size="sm"

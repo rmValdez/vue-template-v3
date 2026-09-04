@@ -32,8 +32,7 @@ const variantClasses = {
     'bg-secondary text-secondary-foreground hover:bg-secondary/80 focus-visible:ring-secondary',
   outline:
     'border border-border bg-transparent hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring',
-  ghost:
-    'hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring',
+  ghost: 'hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring',
   destructive:
     'bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm focus-visible:ring-destructive'
 };

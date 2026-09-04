@@ -31,7 +31,11 @@ const emit = defineEmits<{
 }>();
 
 const inputId = computed(
-  () => props.id || (props.label ? `input-${props.label.toLowerCase().replace(/\s+/g, '-')}` : undefined)
+  () =>
+    props.id ||
+    (props.label
+      ? `input-${props.label.toLowerCase().replace(/\s+/g, '-')}`
+      : undefined)
 );
 
 const inputClasses = computed(() =>

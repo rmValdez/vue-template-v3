@@ -83,16 +83,19 @@ graph TD
 ## 🚀 Quick Start
 
 ### 1. Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 2. Run Local Development Server
+
 ```bash
 npm run dev
 ```
 
 ### 3. Run Automated Quality Checks
+
 ```bash
 # Static architecture boundary check
 npm run validate
